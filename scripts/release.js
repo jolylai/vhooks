@@ -1,6 +1,5 @@
 const { prompt } = require("enquirer");
 const path = require("path");
-const fs = require("fs");
 const args = require("minimist")(process.argv.slice(2));
 const targetVersion = args.v;
 const execa = require("execa");
@@ -23,24 +22,11 @@ const runIfNotDry = isDryRun ? dryRun : run;
 
   if (!yes) return;
 
-  // step("\nRunning element3 tests...");
-  // await run("yarn", ["workspace", "element3", "test"]);
+  // step("\nRunning tests...");
+  // await run("yarn", ["test"]);
 
-  // step("\nBuilding element3...");
-  // await run("yarn", ["workspace", "element3", "build"]);
-
-  // step("\nUpdate element3 version...");
-  // await run("yarn", [
-  //   "workspace",
-  //   "element3",
-  //   "version",
-  //   "--new-version",
-  //   targetVersion,
-  //   "--no-git-tag-version"
-  // ]);
-
-  // step("\nUpdating element3 cross dependencies...");
-  // updatePackageVersion(targetVersion);
+  step("\nBuilding usevhooks...");
+  await run("yarn", ["build"]);
 
   const { stdout } = await run("git", ["diff"], { stdio: "pipe" });
   if (stdout) {
@@ -70,46 +56,16 @@ const runIfNotDry = isDryRun ? dryRun : run;
     }
   );
 
-  // step("\nPushing to GitHub...");
-  // await runIfNotDry("git", ["tag", `v${targetVersion}`]);
-  // await runIfNotDry("git", [
-  //   "push",
-  //   "origin",
-  //   `refs/tags/v${targetVersion}`,
-  //   "--no-verify"
-  // ]);
-  // await runIfNotDry("git", ["push", "origin", "master", "--no-verify"]);
+  step("\nPushing to GitHub...");
+  await runIfNotDry("git", ["tag", `v${targetVersion}`]);
+  await runIfNotDry("git", [
+    "push",
+    "origin",
+    `refs/tags/v${targetVersion}`,
+    "--no-verify"
+  ]);
+  await runIfNotDry("git", ["push", "origin", "master", "--no-verify"]);
 
-  // console.log();
+  console.log();
   console.log(chalk.green(`Successfully published v${targetVersion}`));
 })();
-
-function updatePackageVersion(version) {
-  getPackagePath().forEach(pkgPath => {
-    const pkg = JSON.parse(fs.readFileSync(pkgPath));
-    updateDeps(pkg, "dependencies", version);
-    fs.writeFileSync(pkgPath, JSON.stringify(pkg, null, 2) + "\n");
-  });
-}
-
-function getPackagePath() {
-  const pkgRoot = path.resolve(__dirname, "../packages");
-  const packages = fs
-    .readdirSync(pkgRoot)
-    .filter(name => !name.startsWith("."));
-
-  return packages.map(packageName =>
-    path.resolve(pkgRoot, packageName, "package.json")
-  );
-}
-
-function updateDeps(packageJson, depType, version) {
-  const dependencies = packageJson[depType];
-  if (!dependencies) return;
-
-  Object.keys(dependencies).forEach(key => {
-    if (key === "element3") {
-      dependencies[key] = version;
-    }
-  });
-}
