@@ -1,1 +1,3 @@
-console.log("vhooks");
+import useRequest from "./useRequest";
+
+export { useRequest };
