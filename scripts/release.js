@@ -51,7 +51,7 @@ const runIfNotDry = isDryRun ? dryRun : run;
     console.log("No changes to commit.");
   }
 
-  step("\nPublishing vhooks package...");
+  step("\nPublishing usevhooks package...");
 
   await runIfNotDry(
     "yarn",
@@ -65,7 +65,7 @@ const runIfNotDry = isDryRun ? dryRun : run;
       "public"
     ],
     {
-      cwd: path.resolve(__dirname),
+      cwd: path.resolve(__dirname, ".."),
       stdio: "pipe"
     }
   );
