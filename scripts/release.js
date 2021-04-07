@@ -65,6 +65,7 @@ const runIfNotDry = isDryRun ? dryRun : run;
       "public"
     ],
     {
+      cwd: path.resolve(__dirname),
       stdio: "pipe"
     }
   );
