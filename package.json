@@ -19,6 +19,7 @@
     "release": "node scripts/release.js"
   },
   "dependencies": {
+    "naive-ui": "^2.15.11",
     "vue": "^3.0.11"
   },
   "devDependencies": {
@@ -38,6 +39,7 @@
     "rollup-plugin-peer-deps-external": "^2.2.4",
     "rollup-plugin-terser": "^7.0.2",
     "semver": "^7.3.5",
+    "typescript": "^4.3.5",
     "vite": "^2.4.4",
     "vitepress": "^0.15.6"
   }
