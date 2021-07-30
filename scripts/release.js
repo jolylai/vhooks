@@ -1,7 +1,7 @@
+const semver = require("semver");
 const { prompt } = require("enquirer");
 const path = require("path");
 const args = require("minimist")(process.argv.slice(2));
-const targetVersion = args.v;
 const execa = require("execa");
 const chalk = require("chalk");
 const isDryRun = args.dry;
@@ -13,20 +13,64 @@ const dryRun = (bin, args, opts = {}) =>
   console.log(chalk.blue(`[dryrun] ${bin} ${args.join(" ")}`), opts);
 const runIfNotDry = isDryRun ? dryRun : run;
 
+const currentVersion = require("../package.json").version;
+const preId =
+  args.preid ||
+  (semver.prerelease(currentVersion) && semver.prerelease(currentVersion)[0]);
+
+const inc = i => semver.inc(currentVersion, i, preId);
+
+const versionIncrements = [
+  "patch",
+  "minor",
+  "major",
+  ...(preId ? ["prepatch", "preminor", "premajor", "prerelease"] : [])
+];
+
 (async function main() {
+  let targetVersion = args._[0];
+  const { release } = await prompt({
+    type: "select",
+    name: "release",
+    message: "Select release type",
+    choices: versionIncrements.map(i => `${i} (${inc(i)})`).concat(["custom"])
+  });
+
+  if (release === "custom") {
+    targetVersion = (
+      await prompt({
+        type: "input",
+        name: "version",
+        message: "Input custom version",
+        initial: currentVersion
+      })
+    ).version;
+  } else {
+    targetVersion = release.match(/\((.*)\)/)[1];
+  }
+
+  if (!semver.valid(targetVersion)) {
+    throw new Error(`invalid target version: ${targetVersion}`);
+  }
+
   const { yes } = await prompt({
     type: "confirm",
     name: "yes",
     message: `Releasing v${targetVersion}. Confirm?`
   });
 
-  if (!yes) return;
+  if (!yes) {
+    return;
+  }
 
-  // step("\nRunning tests...");
-  // await run("yarn", ["test"]);
+  step("\nRunning tests...");
+  await runIfNotDry("yarn", ["test"]);
 
   step("\nBuilding usevhooks...");
-  await run("yarn", ["build"]);
+  await runIfNotDry("yarn", ["build"]);
+
+  step("\nGenerate changelog...");
+  await runIfNotDry(`yarn`, ["changelog"]);
 
   const { stdout } = await run("git", ["diff"], { stdio: "pipe" });
   if (stdout) {
