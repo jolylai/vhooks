@@ -5,7 +5,7 @@ home: true
 heroText: Vue Hooks
 tagline: use vue hooks like ahooks
 actionText: Get Started
-actionLink: /guide/
+actionLink: /hooks/ui/useVirtualList
 features:
   - title: Simplicity First
     details: Minimal setup with markdown-centered project structure helps you focus on writing.

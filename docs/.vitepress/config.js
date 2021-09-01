@@ -1,8 +1,9 @@
 module.exports = {
   title: "Vue Hooks",
   description: "Just playing around.",
+  alias: [{ find: "usevhooks", replacement: "/src/index.ts" }],
   themeConfig: {
-    // repo: "vuejs/vitepress",
+    repo: "jolylai/vhooks",
     docsDir: "docs",
 
     editLinks: true,
@@ -12,7 +13,7 @@ module.exports = {
     nav: [
       {
         text: "hooks",
-        link: "/hooks/useBoolean",
+        link: "/hooks/state/useBoolean",
         activeMatch: "^/$|^/hooks/",
       },
     ],
@@ -28,6 +29,10 @@ function getHooksSidebar() {
     {
       text: "Dom",
       children: [{ text: "useClickAway", link: "/hooks/dom/useClickAway" }],
+    },
+    {
+      text: "UI",
+      children: [{ text: "useVirtualList", link: "/hooks/ui/useVirtualList" }],
     },
     {
       text: "State",
