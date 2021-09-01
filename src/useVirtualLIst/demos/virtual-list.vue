@@ -2,14 +2,8 @@
   <div>ddd</div>
 </template>
 
-<script lang="ts">
-import { defineComponent } from "vue";
-
-import useVirtualList from "../index";
-
-export default defineComponent({
-  setup() {
-    console.log(useVirtualList);
-  },
-});
+<script setup>
+import { useVirtualList } from "usevhooks";
+console.log("useVirtualList: ", useVirtualList);
+const list = Array.from({ length: 10000 }).keys();
 </script>

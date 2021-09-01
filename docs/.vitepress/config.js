@@ -1,7 +1,13 @@
+const path = require("path");
+
 module.exports = {
   title: "Vue Hooks",
   description: "Just playing around.",
-  alias: [{ find: "usevhooks", replacement: "/src/index.ts" }],
+  // resolve: {
+  //   alias: {
+  //     usevhooks: path.resolve(__dirname, "../../src"),
+  //   },
+  // },
   themeConfig: {
     repo: "jolylai/vhooks",
     docsDir: "docs",
@@ -28,7 +34,10 @@ function getHooksSidebar() {
   return [
     {
       text: "Dom",
-      children: [{ text: "useClickAway", link: "/hooks/dom/useClickAway" }],
+      children: [
+        { text: "useClickAway", link: "/hooks/dom/useClickAway" },
+        { text: "useSize", link: "/hooks/dom/useSize" },
+      ],
     },
     {
       text: "UI",
