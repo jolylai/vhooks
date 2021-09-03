@@ -3,7 +3,7 @@
 优雅的管理目标元素外点击事件的 Hook。
 
 1. document 监听全局事件
-2. 使用 `Node.contains()` 判断触发事件元素（event.target）是否在监听的元素内
+2. 使用 `Node.contains()` 判断触发事件元素（event.target）是否在目标元素内
 
 ## 基础使用
 

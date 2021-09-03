@@ -4,10 +4,6 @@ import type { Ref } from "vue";
 export type BasicTarget<T = HTMLElement> = T | (() => T) | null | Ref<T>;
 export type TargetElement = HTMLElement | Element | Window | Document;
 
-/**
- * 获取目标元素
- * @param target
- */
 export const getTargetElement = (
   target: BasicTarget,
   defaultTarget?: TargetElement

@@ -1,4 +1,4 @@
-import { onBeforeUnmount, onMounted, watch, watchEffect } from "vue";
+import { onBeforeUnmount, onMounted, watch } from "vue";
 import { BasicTarget, getTargetElement } from "../utils/dom";
 
 const defaultEvent = "click";
@@ -25,12 +25,6 @@ const useClickAway = (
       onClickAway(event);
     }
   };
-
-  // watchEffect(() => {
-
-  //   document.removeEventListener(eventName, handler, false);
-  //   document.addEventListener(eventName, handler, false);
-  // });
 
   watch(
     () => [eventName, target],

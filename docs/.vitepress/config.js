@@ -36,6 +36,7 @@ function getHooksSidebar() {
       text: "Dom",
       children: [
         { text: "useClickAway", link: "/hooks/dom/useClickAway" },
+        { text: "useExternal", link: "/hooks/dom/useExternal" },
         { text: "useSize", link: "/hooks/dom/useSize" },
       ],
     },
