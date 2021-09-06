@@ -3,14 +3,9 @@ const path = require("path");
 module.exports = {
   title: "Vue Hooks",
   description: "Just playing around.",
-  // resolve: {
-  //   alias: {
-  //     usevhooks: path.resolve(__dirname, "../../src"),
-  //   },
-  // },
   themeConfig: {
     repo: "jolylai/vhooks",
-    docsDir: "docs",
+    docsDir: "src",
 
     editLinks: true,
     editLinkText: "Edit this page on GitHub",
@@ -35,21 +30,22 @@ function getHooksSidebar() {
     {
       text: "Dom",
       children: [
-        { text: "useClickAway", link: "/hooks/dom/useClickAway" },
+        { text: "useClickAway", link: "/src/useClickAway/" },
         { text: "useExternal", link: "/hooks/dom/useExternal" },
+        { text: "useFavicon", link: "/hooks/dom/useFavicon" },
         { text: "useSize", link: "/hooks/dom/useSize" },
       ],
     },
-    {
-      text: "UI",
-      children: [{ text: "useVirtualList", link: "/hooks/ui/useVirtualList" }],
-    },
-    {
-      text: "State",
-      children: [
-        { text: "useBoolean", link: "/hooks/state/useBoolean" },
-        { text: "useCounter", link: "/hooks/state/useCounter" },
-      ],
-    },
+    // {
+    //   text: "UI",
+    //   children: [{ text: "useVirtualList", link: "/hooks/ui/useVirtualList" }],
+    // },
+    // {
+    //   text: "State",
+    //   children: [
+    //     { text: "useBoolean", link: "/hooks/state/useBoolean" },
+    //     { text: "useCounter", link: "/hooks/state/useCounter" },
+    //   ],
+    // },
   ];
 }

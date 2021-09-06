@@ -5,5 +5,13 @@ import useVirtualList from "./useVirtualLIst";
 import useSize from "./useSize";
 import useClickAway from "./useClickAway";
 import useExternal from "./useExternal";
+import useFavicon from "./useFavicon";
 
-export { useRequest, useVirtualList, useSize, useClickAway, useExternal };
+export {
+  useRequest,
+  useVirtualList,
+  useSize,
+  useClickAway,
+  useExternal,
+  useFavicon,
+};
