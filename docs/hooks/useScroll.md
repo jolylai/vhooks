@@ -1,6 +1,8 @@
 ## 前言
 
-一个跟踪鼠标位置的 Hook
+获取元素的滚动状态。
+
+- [使用 document.scrollingElement 控制窗体滚动高度](https://www.zhangxinxu.com/wordpress/2019/02/document-scrollingelement/)
 
 <script setup>
   import Demo1 from '@/src/useScroll/demos/demo1.vue'
@@ -19,6 +21,20 @@
 <demo2 />
 
 <<< src/useScroll/demos/demo2.vue
+
+页面滚动在 document 滚动监听滚动事件
+
+```js
+document.addEventListener("scroll", (event) => {
+  if (event.target === document) {
+    const { scrollLeft, scrollTop } = document.scrollingElement;
+  } else {
+    const { scrollLeft, scrollTop } = event.target;
+  }
+});
+```
+
+scrollingElement 返回滚动文档的 Element 对象的引用。 在标准模式下是文档的根元素 `document.documentElement`.当在怪异模式下， scrollingElement 属性返回 HTML body 元素（若不存在返回 null ）。
 
 ## 控制滚动状态的监听
 

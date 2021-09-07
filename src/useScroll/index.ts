@@ -10,12 +10,12 @@ const useScroll = (
   target: BasicTarget,
   shouldUpdate: (position: UseScrollPosition) => boolean
 ) => {
-  const top = ref();
-  const left = ref();
+  const top = ref(null);
+  const left = ref(null);
 
   const handleScroll = (event) => {
-    let scrollTop;
-    let scrollLeft;
+    let scrollTop = null;
+    let scrollLeft = null;
 
     const target = event.target;
 
@@ -38,8 +38,6 @@ const useScroll = (
 
   watchPostEffect((onInvalid) => {
     const targetElement = getTargetElement(target, document);
-    console.log("document: ", document);
-    console.log("targetElement: ", targetElement);
 
     if (!targetElement) return;
 
