@@ -9,6 +9,7 @@ import useFavicon from "./useFavicon";
 import useInViewport from "./useInViewport";
 import useEventListener from "./useEventListener";
 import useHover from "./useHover";
+import useMouse from "./useMouse";
 
 export {
   useRequest,
@@ -20,4 +21,5 @@ export {
   useInViewport,
   useEventListener,
   useHover,
+  useMouse,
 };
