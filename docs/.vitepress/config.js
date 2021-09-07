@@ -30,22 +30,24 @@ function getHooksSidebar() {
     {
       text: "Dom",
       children: [
-        { text: "useClickAway", link: "/src/useClickAway/" },
+        { text: "useClickAway", link: "/hooks/dom/useClickAway/" },
         { text: "useExternal", link: "/hooks/dom/useExternal" },
         { text: "useFavicon", link: "/hooks/dom/useFavicon" },
+        { text: "useInViewport", link: "/hooks/dom/useInViewport" },
+        { text: "useEventListener", link: "/hooks/dom/useEventListener" },
         { text: "useSize", link: "/hooks/dom/useSize" },
       ],
     },
-    // {
-    //   text: "UI",
-    //   children: [{ text: "useVirtualList", link: "/hooks/ui/useVirtualList" }],
-    // },
-    // {
-    //   text: "State",
-    //   children: [
-    //     { text: "useBoolean", link: "/hooks/state/useBoolean" },
-    //     { text: "useCounter", link: "/hooks/state/useCounter" },
-    //   ],
-    // },
+    {
+      text: "UI",
+      children: [{ text: "useVirtualList", link: "/hooks/ui/useVirtualList" }],
+    },
+    {
+      text: "State",
+      children: [
+        { text: "useBoolean", link: "/hooks/state/useBoolean" },
+        { text: "useCounter", link: "/hooks/state/useCounter" },
+      ],
+    },
   ];
 }

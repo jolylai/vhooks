@@ -6,6 +6,8 @@ import useSize from "./useSize";
 import useClickAway from "./useClickAway";
 import useExternal from "./useExternal";
 import useFavicon from "./useFavicon";
+import useInViewport from "./useInViewport";
+import useEventListener from "./useEventListener";
 
 export {
   useRequest,
@@ -14,4 +16,6 @@ export {
   useClickAway,
   useExternal,
   useFavicon,
+  useInViewport,
+  useEventListener,
 };
