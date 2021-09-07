@@ -1,6 +1,5 @@
 <template>
-  <button id="useClickAwayBtn">点击</button>
-  <p>点击了 {{ count }} 次</p>
+  <button id="useClickAwayBtn">点击了 {{ count }} 次</button>
 </template>
 
 <script setup>

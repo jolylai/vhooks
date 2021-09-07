@@ -36,6 +36,7 @@ function getHooksSidebar() {
         { text: "useInViewport", link: "/hooks/useInViewport" },
         { text: "useEventListener", link: "/hooks/useEventListener" },
         { text: "useSize", link: "/hooks/useSize" },
+        { text: "useHover", link: "/hooks/useHover" },
       ],
     },
     {

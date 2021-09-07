@@ -8,6 +8,7 @@ import useExternal from "./useExternal";
 import useFavicon from "./useFavicon";
 import useInViewport from "./useInViewport";
 import useEventListener from "./useEventListener";
+import useHover from "./useHover";
 
 export {
   useRequest,
@@ -18,4 +19,5 @@ export {
   useFavicon,
   useInViewport,
   useEventListener,
+  useHover,
 };

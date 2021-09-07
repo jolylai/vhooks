@@ -1,6 +1,5 @@
 <template>
-  <button ref="btnRef">点击</button>
-  <p>点击了 {{ count }} 次</p>
+  <button ref="btnRef">点击了 {{ count }} 次</button>
 </template>
 
 <script setup>

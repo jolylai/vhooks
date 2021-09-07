@@ -21,7 +21,6 @@ const useExternal = (path: string | Ref<string>, options: Options) => {
   const src = computed(() => {
     return path;
   });
-  console.log("src: ", src);
 
   const isPath = () => {
     if (typeof path === "string" && path !== "") return true;
