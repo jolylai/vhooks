@@ -38,6 +38,7 @@ function getHooksSidebar() {
         { text: "useSize", link: "/hooks/useSize" },
         { text: "useHover", link: "/hooks/useHover" },
         { text: "useMouse", link: "/hooks/useMouse" },
+        { text: "useScroll", link: "/hooks/useScroll" },
       ],
     },
     {

@@ -10,6 +10,7 @@ import useInViewport from "./useInViewport";
 import useEventListener from "./useEventListener";
 import useHover from "./useHover";
 import useMouse from "./useMouse";
+import useScroll from "./useScroll";
 
 export {
   useRequest,
@@ -22,4 +23,5 @@ export {
   useEventListener,
   useHover,
   useMouse,
+  useScroll,
 };
