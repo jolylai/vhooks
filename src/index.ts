@@ -1,5 +1,5 @@
 import useRequest from "./useRequest";
-import useVirtualList from "./useVirtualLIst";
+import useVirtualList from "./useVirtualList";
 
 // dom
 import useSize from "./useSize";
