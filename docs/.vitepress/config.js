@@ -28,6 +28,10 @@ module.exports = {
 function getHooksSidebar() {
   return [
     {
+      text: "useRequest",
+      children: [{ text: "useRequest", link: "/hooks/useRequest" }],
+    },
+    {
       text: "Dom",
       children: [
         { text: "useClickAway", link: "/hooks/useClickAway" },
