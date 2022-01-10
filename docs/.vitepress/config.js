@@ -29,7 +29,7 @@ function getHooksSidebar() {
   return [
     {
       text: "useRequest",
-      children: [{ text: "useRequest", link: "/hooks/useRequest" }],
+      children: [{ text: "useRequest", link: "/hooks/useRequest/" }],
     },
     {
       text: "Dom",
