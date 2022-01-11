@@ -1,5 +1,6 @@
 import useCachePlugin from "./plugins/useCachePlugin";
 import usePollingPlugin from "./plugins/usePollingPlugin";
+import useLoadingDelayPlugin from "./plugins/useLoadingDelayPlugin";
 
 import { Options, Service, Plugin } from "./types";
 import useRequestImplement from "./useRequestImplement";
@@ -13,6 +14,7 @@ function useRequest<TData, TParams extends any[]>(
     ...(plugins || []),
     useCachePlugin,
     usePollingPlugin,
+    useLoadingDelayPlugin,
   ] as Plugin<TData, TParams>[]);
 }
 

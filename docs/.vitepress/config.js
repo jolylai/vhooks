@@ -32,6 +32,7 @@ function getHooksSidebar() {
       children: [
         { text: "基础用法", link: "/hooks/useRequest/basic/" },
         { text: "轮询", link: "/hooks/useRequest/polling/" },
+        { text: "Loading Delay", link: "/hooks/useRequest/loadingDelay/" },
         { text: "缓存", link: "/hooks/useRequest/cache/" },
       ],
     },
