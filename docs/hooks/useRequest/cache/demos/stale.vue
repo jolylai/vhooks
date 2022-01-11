@@ -28,7 +28,8 @@ const fetchComments = async () => {
 export default defineComponent({
   setup() {
     const { data, loading } = useRequest(fetchComments, {
-      cacheKey: "cacheKey-demo",
+      cacheKey: "staleTime-demo",
+      staleTime: 5000,
     });
 
     return {

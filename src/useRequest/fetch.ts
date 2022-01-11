@@ -48,15 +48,40 @@ export default class Fetch<TData, TParams extends any[]> {
   async runAsync(...params: TParams): Promise<TData> {
     this.count++;
 
+    const {
+      stopNow = false,
+      returnNow = false,
+      ...state
+    } = this.runPluginHandler("onBefore", ...params);
+
+    if (stopNow) {
+      return new Promise(() => {});
+    }
+
     this.setState({
       loading: true,
       params,
+      ...state,
     });
+
+    if (returnNow) {
+      return Promise.resolve(state.data);
+    }
 
     this.options.onBefore?.(params);
 
     try {
-      let res = await this.service(...params);
+      let { servicePromise } = this.runPluginHandler(
+        "onRequest",
+        this.service,
+        params
+      );
+
+      if (!servicePromise) {
+        servicePromise = this.service(...params);
+      }
+
+      let res = await servicePromise;
 
       this.setState({
         data: res,
@@ -65,8 +90,10 @@ export default class Fetch<TData, TParams extends any[]> {
       });
 
       this.options.onSuccess?.(res, params);
+      this.runPluginHandler("onSuccess", res, params);
 
       this.options.onFinally?.(params, res, undefined);
+      this.runPluginHandler("onFinally", params, res, undefined);
 
       return res;
     } catch (error) {
@@ -78,7 +105,9 @@ export default class Fetch<TData, TParams extends any[]> {
       });
 
       this.options.onError?.(error as Error, params);
+      this.runPluginHandler("onError", error, params);
       this.options.onFinally?.(params, undefined, error as Error);
+      this.runPluginHandler("onFinally", params, undefined, error);
       // 抛出错误用户自行处理
       throw error;
     }
@@ -101,6 +130,8 @@ export default class Fetch<TData, TParams extends any[]> {
       targetData = data;
     }
 
+    this.runPluginHandler("onMutate", targetData);
+
     this.setState({
       data: targetData,
     });
@@ -108,6 +139,9 @@ export default class Fetch<TData, TParams extends any[]> {
 
   cancel() {
     this.count += 1;
+
+    this.runPluginHandler("onCancel");
+
     this.setState({
       loading: false,
     });

@@ -43,7 +43,7 @@ function useRequestImplement<TData, TParams extends any[]>(
     loading: toRef(fetchInstance.state, "loading"),
     data: toRef(fetchInstance.state, "data"),
     error: toRef(fetchInstance.state, "error"),
-    params: toRef(fetchInstance.state, "params") || [],
+    params: fetchInstance.state.params || [],
     // ？ bind
     // @ts-ignore
     run: fetchInstance.run.bind(fetchInstance, ...params),
@@ -52,6 +52,7 @@ function useRequestImplement<TData, TParams extends any[]>(
     refresh: fetchInstance.refresh.bind(fetchInstance),
     refreshAsync: fetchInstance.refreshAsync.bind(fetchInstance),
     mutate: fetchInstance.mutate.bind(fetchInstance),
+    cancel: fetchInstance.cancel.bind(fetchInstance),
   };
 }
 

@@ -7,7 +7,10 @@
       <div>Header</div>
     </template>
     <template #footer>
-      <div>Footer</div>
+      <a-space>
+        <a-button @click="run">Run</a-button>
+        <a-button @click="cancel">Stop</a-button>
+      </a-space>
     </template>
   </a-list>
 </template>
@@ -17,7 +20,7 @@ import { defineComponent } from "vue";
 // @ts-ignore
 import { useRequest } from "usevhooks";
 
-const fetchComments = async () => {
+const fetchComments = async (params: number) => {
   const id = Math.floor(Math.random() * 100);
 
   return fetch(
@@ -27,13 +30,16 @@ const fetchComments = async () => {
 
 export default defineComponent({
   setup() {
-    const { data, loading } = useRequest(fetchComments, {
-      cacheKey: "cacheKey-demo",
+    const { data, loading, run, cancel } = useRequest(fetchComments, {
+      pollingInterval: 1000,
+      pollingWhenHidden: false,
     });
 
     return {
       data,
       loading,
+      run,
+      cancel,
     };
   },
 });

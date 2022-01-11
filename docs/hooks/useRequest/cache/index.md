@@ -1,6 +1,23 @@
 <script setup>
-
+  import { ref } from 'vue'
   import Swr from './demos/swr.vue'
+  import Stale from './demos/stale.vue'
+  import Params from './demos/params.vue'
+
+  const swrState = ref(false)
+  const toggleSwrState = () =>{
+    swrState.value = !swrState.value
+  }
+
+  const staleState = ref(false)
+  const toggleStaleState = () =>{
+    staleState.value = !staleState.value
+  }
+
+  const paramsState = ref(false)
+  const toggleParamsState = () =>{
+    paramsState.value = !paramsState.value
+  }
 </script>
 
 ## 缓存 & SWR
@@ -17,4 +34,36 @@
 
 下面的示例，我们设置了 cacheKey，在组件第二次加载时，会优先返回缓存的内容，然后在背后重新发起请求。你可以通过点击按钮来体验效果。
 
-<swr />
+<a-space direction="vertical" style="margin-bottom: 16px">
+  <a-button @click="toggleSwrState">show/hide</a-button>
+  <swr v-if='swrState' />
+</a-space>
+
+## 数据保持新鲜
+
+通过设置 staleTime，我们可以指定数据新鲜时间，在这个时间内，不会重新发起请求。下面的示例设置了 5s 的新鲜时间，你可以通过点击按钮来体验效果
+
+<a-space direction="vertical" style="margin-bottom: 16px">
+  <a-button @click="toggleStaleState">show/hide</a-button>
+  <stale v-if='staleState' />
+</a-space>
+
+## 数据共享
+
+同一个 cacheKey 的内容，在全局是共享的，这会带来以下几个特性
+
+- 请求 Promise 共享，相同的 cacheKey 同时只会有一个在发起请求，后发起的会共用同一个请求 Promise
+- 数据同步，任何时候，当我们改变其中某个 cacheKey 的内容时，其它相同 cacheKey 的内容均会同步
+
+下面的示例中，初始化时，两个组件只会发起一个请求。并且两篇文章的内容永远是同步的。
+
+## 参数缓存
+
+缓存的数据包括 data 和 params，通过 params 缓存机制，我们可以记忆上一次请求的条件，并在下次初始化。
+
+下面的示例中，我们可以从缓存的 params 中初始化 keyword
+
+<a-space direction="vertical" style="margin-bottom: 16px">
+  <a-button @click="toggleParamsState">show/hide</a-button>
+  <params v-if='paramsState' />
+</a-space>

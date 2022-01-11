@@ -1,3 +1,6 @@
+import useCachePlugin from "./plugins/useCachePlugin";
+import usePollingPlugin from "./plugins/usePollingPlugin";
+
 import { Options, Service, Plugin } from "./types";
 import useRequestImplement from "./useRequestImplement";
 
@@ -6,7 +9,11 @@ function useRequest<TData, TParams extends any[]>(
   options?: Options<TData, TParams>,
   plugins?: Plugin<TData, TParams>[]
 ) {
-  return useRequestImplement(service, options, [...(plugins || [])]);
+  return useRequestImplement(service, options, [
+    ...(plugins || []),
+    useCachePlugin,
+    usePollingPlugin,
+  ] as Plugin<TData, TParams>[]);
 }
 
 export default useRequest;
