@@ -1,9 +1,10 @@
 import DefaultTheme from "vitepress/theme";
-import naive from "naive-ui";
+import antd from "ant-design-vue";
+import "ant-design-vue/dist/antd.css";
 
 export default {
   ...DefaultTheme,
   enhanceApp({ app }) {
-    app.use(naive);
+    app.use(antd);
   },
 };

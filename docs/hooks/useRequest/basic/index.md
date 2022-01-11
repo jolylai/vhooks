@@ -8,6 +8,7 @@
   import ManualRunAsync from './demos/manual-run-async.vue'
   import LifeCycle from './demos/life-cycle.vue'
   import Refresh from './demos/refresh.vue'
+  import Mutate from './demos/mutate.vue'
 </script>
 
 <basic />
@@ -41,3 +42,22 @@ useRequest 提供了 refresh 和 refreshAsync 方法，使我们可以使用上�
 我们想重新发起上一次的请求，那我们就可以使用 refresh 来代替 run(1)，这在复杂参数的场景中是非常有用的
 
 <refresh />
+
+## 立即变更数据
+
+useRequest 提供了 mutate, 支持立即修改 useRequest 返回的 data 参数。
+
+mutate 的用法与 React.setState 一致，支持 mutate(newData) 和 mutate((oldData) => newData) 两种写法。
+
+下面的示例，我们演示了一种 mutate 的应用场景。
+
+我们修改了用户名，但是我们不希望等编辑接口调用成功之后，才给用户反馈。而是直接修改页面数据，同时在背后去调用修改接口，等修改接口返回之后，另外提供反馈。
+
+<mutate />
+
+## 取消请求
+
+useRequest 提供了 cancel 函数，可以取消当前正在进行的请求。同时 useRequest 会在以下时机自动取消当前请求：
+
+- 组件卸载时，取消正在进行的请求
+- 竞态取消，当上一次请求还没返回时，又发起了下一次请求，则会取消上一次请求

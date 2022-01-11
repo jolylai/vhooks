@@ -8,8 +8,8 @@
   <button @click="refresh">Refresh</button>
 </template>
 
-<script lang="ts" setup>
-import { onMounted } from "@vue/runtime-core";
+<script lang="ts">
+import { defineComponent, onMounted } from "vue";
 // @ts-ignore
 import { useRequest } from "usevhooks";
 
@@ -22,14 +22,25 @@ function getUsername(id: number): Promise<string> {
   });
 }
 
-const { data, loading, error, run, refresh } = useRequest(
-  (id: number) => getUsername(id),
-  {
-    manual: true,
-  }
-);
+export default defineComponent({
+  setup() {
+    const { data, loading, error, run, refresh } = useRequest(
+      (id: number) => getUsername(id),
+      {
+        manual: true,
+      }
+    );
 
-onMounted(() => {
-  run(1);
+    onMounted(() => {
+      run(1);
+    });
+
+    return {
+      data,
+      loading,
+      error,
+      refresh,
+    };
+  },
 });
 </script>

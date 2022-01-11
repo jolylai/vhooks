@@ -20,7 +20,7 @@
     "test": "jest"
   },
   "dependencies": {
-    "naive-ui": "^2.15.11",
+    "ant-design-vue": "^2.2.8",
     "vue": "^3.2.6"
   },
   "devDependencies": {

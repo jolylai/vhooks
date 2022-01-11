@@ -26,7 +26,9 @@ export default defineComponent({
 
     const { data, error, loading, run } = useRequest(editUsername, {
       manual: true,
-      onSuccess(result, params) {},
+      onSuccess(result: string, params: string) {
+        console.log(result, params);
+      },
       onError(error: Error) {
         console.log(error.message);
       },

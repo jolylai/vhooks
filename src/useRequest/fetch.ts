@@ -1,8 +1,10 @@
 import { reactive } from "vue";
-import { FetchState, Service, Options } from "./types";
+import { FetchState, Service, Options, PluginReturn, Subscribe } from "./types";
 
 export default class Fetch<TData, TParams extends any[]> {
   count: number = 0;
+
+  pluginImpls: PluginReturn<TData, TParams>[] = [];
 
   state: FetchState<TData, TParams> = reactive({
     loading: false,
@@ -17,8 +19,27 @@ export default class Fetch<TData, TParams extends any[]> {
 
   constructor(
     public service: Service<TData, TParams>,
-    public options: Options<TData, TParams>
-  ) {}
+    public options: Options<TData, TParams>,
+    public subscribe: Subscribe,
+    public initState: Partial<FetchState<TData, TParams>>
+  ) {
+    this.setState({
+      loading: !options.manual,
+      ...initState,
+    });
+  }
+
+  runPluginHandler(
+    event: keyof PluginReturn<TData, TParams>,
+    ...params: any[]
+  ) {
+    const r = this.pluginImpls
+      // @ts-ignore
+      .map((plugin) => plugin[event]?.(...params))
+      .filter(Boolean);
+
+    return Object.assign({}, ...r);
+  }
 
   run(...params: TParams) {
     this.runAsync(...params).catch((error) => {});
@@ -69,5 +90,26 @@ export default class Fetch<TData, TParams extends any[]> {
 
   refreshAsync() {
     this.runAsync(...(this.state.params as TParams));
+  }
+
+  mutate(data?: TData | ((oldData?: TData) => TData | undefined)) {
+    let targetData: TData | undefined;
+    if (typeof data === "function") {
+      // @ts-ignore
+      targetData = data(this.state.data);
+    } else {
+      targetData = data;
+    }
+
+    this.setState({
+      data: targetData,
+    });
+  }
+
+  cancel() {
+    this.count += 1;
+    this.setState({
+      loading: false,
+    });
   }
 }

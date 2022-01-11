@@ -29,7 +29,10 @@ function getHooksSidebar() {
   return [
     {
       text: "useRequest",
-      children: [{ text: "useRequest", link: "/hooks/useRequest/" }],
+      children: [
+        { text: "基础用法", link: "/hooks/useRequest/basic/" },
+        { text: "缓存", link: "/hooks/useRequest/cache/" },
+      ],
     },
     {
       text: "Dom",
