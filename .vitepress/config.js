@@ -5,19 +5,19 @@ module.exports = {
   description: "Just playing around.",
   themeConfig: {
     repo: "jolylai/vhooks",
-    docsDir: "../",
-
+    // docsDir: "hooks",
+    // srcDir: ,
     editLinks: true,
     editLinkText: "Edit this page on GitHub",
     lastUpdated: "Last Updated",
 
-    nav: [
-      {
-        text: "hooks",
-        link: "/hooks/state/useBoolean",
-        activeMatch: "^/$|^/hooks/",
-      },
-    ],
+    // nav: [
+    //   {
+    //     text: "hooks",
+    //     link: "/hooks/state/useBoolean",
+    //     activeMatch: "^/$|^/hooks/",
+    //   },
+    // ],
 
     sidebar: {
       "/hooks/": getHooksSidebar(),
@@ -45,21 +45,21 @@ function getHooksSidebar() {
     {
       text: "Dom",
       children: [
-        { text: "useClickAway", link: "/hooks/useClickAway" },
-        { text: "useExternal", link: "/hooks/useExternal" },
-        { text: "useFavicon", link: "/hooks/useFavicon" },
-        { text: "useInViewport", link: "/hooks/useInViewport" },
-        { text: "useEventListener", link: "/hooks/useEventListener" },
-        { text: "useSize", link: "/hooks/useSize" },
-        { text: "useHover", link: "/hooks/useHover" },
-        { text: "useMouse", link: "/hooks/useMouse" },
-        { text: "useScroll", link: "/hooks/useScroll" },
+        { text: "useEventListener", link: "/hooks/useEventListener/" },
+        { text: "useClickAway", link: "/hooks/useClickAway/" },
+        { text: "useExternal", link: "/hooks/useExternal/" },
+        { text: "useFavicon", link: "/hooks/useFavicon/" },
+        { text: "useInViewport", link: "/hooks/useInViewport/" },
+        { text: "useSize", link: "/hooks/useSize/" },
+        { text: "useHover", link: "/hooks/useHover/" },
+        { text: "useMouse", link: "/hooks/useMouse/" },
+        { text: "useScroll", link: "/hooks/useScroll/" },
       ],
     },
-    {
-      text: "UI",
-      children: [{ text: "useVirtualList", link: "/hooks/useVirtualList" }],
-    },
+    // {
+    //   text: "UI",
+    //   children: [{ text: "useVirtualList", link: "/hooks/useVirtualList" }],
+    // },
     {
       text: "State",
       children: [

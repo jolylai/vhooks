@@ -10,6 +10,7 @@ const useDebouncePlugin: Plugin<any, any[]> = (
 
   const debounceOptions = computed(() => {
     const options: DebounceSettings = {};
+
     if (debounceLeading) {
       options.leading = debounceLeading;
     }

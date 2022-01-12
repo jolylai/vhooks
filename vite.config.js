@@ -5,13 +5,8 @@ import path from "path";
 export default defineConfig({
   resolve: {
     alias: {
-      usevhooks: path.resolve(__dirname, "../src"),
-      "@": path.resolve(__dirname, "../"),
-    },
-  },
-  server: {
-    fs: {
-      allow: [".."],
+      usevhooks: path.resolve(__dirname, "hooks"),
+      "@": path.resolve(__dirname, "/"),
     },
   },
 });
