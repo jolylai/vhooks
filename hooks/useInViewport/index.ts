@@ -1,4 +1,4 @@
-import { onBeforeUnmount, onMounted, ref, watch } from "vue";
+import { ref, watchPostEffect } from "vue";
 import { BasicTarget, getTargetElement } from "../utils/dom";
 
 // const useInViewport = (target: BasicTarget) => {
@@ -39,8 +39,9 @@ import { BasicTarget, getTargetElement } from "../utils/dom";
 //   return isInViewport;
 // };
 
-const useInViewport = (target) => {
+const useInViewport = (target: BasicTarget) => {
   const isInViewport = ref(false);
+  const ratio = ref();
 
   const observer = new IntersectionObserver((entries) => {
     for (let entry of entries) {
@@ -52,35 +53,17 @@ const useInViewport = (target) => {
     }
   });
 
-  onMounted(() => {
+  watchPostEffect((onInvalidate) => {
     const targetElement = getTargetElement(target);
+    if (!targetElement) return;
+    observer.observe(targetElement as Element);
 
-    if (!targetElement) {
-      return;
-    }
-
-    observer.observe(targetElement as HTMLElement);
+    onInvalidate(() => {
+      observer.disconnect();
+    });
   });
 
-  watch(
-    () => target,
-    () => {
-      const targetElement = getTargetElement(target);
-
-      if (!targetElement) {
-        isInViewport.value = false;
-        return;
-      }
-
-      observer.observe(targetElement as HTMLElement);
-    }
-  );
-
-  onBeforeUnmount(() => {
-    observer.disconnect();
-  });
-
-  return isInViewport;
+  return [isInViewport, ratio];
 };
 
 export default useInViewport;

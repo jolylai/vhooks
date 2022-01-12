@@ -9,14 +9,14 @@ getBoundingClientRect
 IntersectionObserver
 
 <script setup>
-  import Demo1 from '@/src/useInViewport/demos/demo1.vue'
+  import Demo1 from './demos/demo1.vue'
 </script>
 
 ## 基础用法
 
-<<< src/useInViewport/demos/demo1.vue
-
 <demo1 />
 
-<<< src/useInViewport/demos/demo1.vue
-<<< src/useInViewport/demos/demo1.vue
+<<< hooks/useInViewport/demos/demo1.vue
+
+<<< hooks/useInViewport/demos/demo1.vue
+<<< hooks/useInViewport/demos/demo1.vue

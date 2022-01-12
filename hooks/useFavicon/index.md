@@ -20,11 +20,11 @@ document.querySelector("link[rel*='icon']");
 ```
 
 <script setup>
-  import Demo1 from '@/src/useFavicon/demos/demo1.vue'
+  import Demo1 from './demos/demo1.vue'
 </script>
 
 ## 基础用法
 
 <demo1 />
 
-<<< src/useFavicon/demos/demo1.vue
+<<< hooks/useFavicon/demos/demo1.vue

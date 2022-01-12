@@ -1,27 +1,45 @@
 <template>
-  <p ref="targetRef">isInViewport: {{ isInViewport }}</p>
-  <div class="anchor">
-    Element {{ isInViewport ? "inside" : "outside" }} the viewport
+  <div class="container">
+    <div style="height: 800px">
+      scroll here
+      <div ref="observerRef" class="observer">observer dom</div>
+    </div>
   </div>
+  <p>inViewport: {{ inViewport ? "visible" : "hidden" }}</p>
 </template>
 
-<script setup>
-import { ref } from "@vue/reactivity";
+<script lang="ts">
+import { defineComponent, ref } from "vue";
+// @ts-ignore
 import { useInViewport } from "usevhooks";
 
-const targetRef = ref();
+export default defineComponent({
+  setup() {
+    const observerRef = ref();
 
-const isInViewport = useInViewport(targetRef);
+    const [inViewport] = useInViewport(observerRef);
+
+    return {
+      inViewport,
+      observerRef,
+    };
+  },
+});
 </script>
 
 <style scoped>
-.anchor {
-  position: fixed;
-  bottom: 120px;
-  right: 80px;
-  border: 1px solid #eee;
-  padding: 16px;
-  background-color: beige;
-  z-index: 1;
+.container {
+  width: 300px;
+  height: 300px;
+  overflow: scroll;
+  border: 1px solid #9d9d9d;
+}
+
+.observer {
+  border: 1px solid #9d9d9d;
+  height: 100px;
+  width: 100px;
+  text-align: center;
+  margin-top: 80px;
 }
 </style>

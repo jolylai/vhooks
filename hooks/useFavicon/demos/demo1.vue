@@ -1,29 +1,39 @@
 <template>
   <p>Favicon: {{ faviconUrl }}</p>
 
-  <div>
-    <button @click="gooleFavicon">Google Favicon</button>
-    <button @click="defaultFavicon">Default Favicon</button>
-  </div>
+  <a-space>
+    <a-button @click="googleFavicon">Google Favicon</a-button>
+    <a-button @click="defaultFavicon">Default Favicon</a-button>
+  </a-space>
 </template>
 
-<script setup>
-import { ref } from "@vue/reactivity";
+<script lang="ts">
+import { defineComponent, ref } from "vue";
+// @ts-ignore
 import { useFavicon } from "usevhooks";
 
-const DEFAULT_FAVICON_URL = "https://ahooks.js.org/simple-logo.svg";
+export default defineComponent({
+  setup() {
+    const DEFAULT_FAVICON_URL = "https://ahooks.js.org/simple-logo.svg";
 
-const GOOGLE_FAVICON_URL = "https://www.google.com/favicon.ico";
+    const GOOGLE_FAVICON_URL = "https://www.google.com/favicon.ico";
 
-const faviconUrl = ref(DEFAULT_FAVICON_URL);
+    const faviconUrl = ref(DEFAULT_FAVICON_URL);
 
-useFavicon(faviconUrl);
+    useFavicon(faviconUrl);
 
-const gooleFavicon = () => {
-  faviconUrl.value = GOOGLE_FAVICON_URL;
-};
+    const googleFavicon = () => {
+      faviconUrl.value = GOOGLE_FAVICON_URL;
+    };
 
-const defaultFavicon = () => {
-  faviconUrl.value = DEFAULT_FAVICON_URL;
-};
+    const defaultFavicon = () => {
+      faviconUrl.value = DEFAULT_FAVICON_URL;
+    };
+    return {
+      faviconUrl,
+      googleFavicon,
+      defaultFavicon,
+    };
+  },
+});
 </script>

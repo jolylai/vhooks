@@ -8,11 +8,20 @@ const ImgTypeMap = {
   PNG: "image/png",
 };
 
+type ImgTypes = keyof typeof ImgTypeMap;
+
 const useFavicon = (faviconURL: string | Ref<string>) => {
   watchEffect(() => {
     const url = unref(faviconURL);
-    const urlSuffix = url.split(".").pop();
-    const ImageType = ImgTypeMap[urlSuffix.toUpperCase()];
+
+    if (!url) return;
+
+    const urlSuffix = url.split(".");
+    const imgSuffix = urlSuffix[
+      urlSuffix.length - 1
+    ].toLocaleLowerCase() as ImgTypes;
+
+    const ImageType = ImgTypeMap[imgSuffix];
 
     const linkElement: HTMLLinkElement =
       document.querySelector("link[rel*='icon']") ||
