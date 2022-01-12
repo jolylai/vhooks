@@ -47,6 +47,10 @@ function getHooksSidebar() {
       children: [
         { text: "useEventListener", link: "/hooks/useEventListener/" },
         { text: "useClickAway", link: "/hooks/useClickAway/" },
+        {
+          text: "useDocumentVisibility",
+          link: "/hooks/useDocumentVisibility/",
+        },
         { text: "useExternal", link: "/hooks/useExternal/" },
         { text: "useFavicon", link: "/hooks/useFavicon/" },
         { text: "useInViewport", link: "/hooks/useInViewport/" },

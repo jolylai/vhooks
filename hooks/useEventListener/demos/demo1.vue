@@ -1,6 +1,6 @@
 <template>
-  <button ref="btnRef">You click {{ count }} times</button>
-  <button id="btnRef">You click {{ count }} times</button>
+  <a-button ref="btnRef">You click {{ count }} times</a-button>
+  <a-button id="btnRef">You click {{ count }} times</a-button>
 </template>
 
 <script setup>

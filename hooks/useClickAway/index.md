@@ -8,15 +8,15 @@
 ## 基础使用
 
 <script setup>
-  import Demo1 from '@/src/useClickAway/demos/demo1.vue'
-  import Demo2 from '@/src/useClickAway/demos/demo2.vue'
-  import Demo3 from '@/src/useClickAway/demos/demo3.vue'
-  import Demo4 from '@/src/useClickAway/demos/demo4.vue'
+  import Demo1 from './demos/demo1.vue'
+  import Demo2 from './demos/demo2.vue'
+  import Demo3 from './demos/demo3.vue'
+  import Demo4 from './demos/demo4.vue'
 </script>
 
 <demo1 />
 
-<<< src/useClickAway/demos/demo1.vue
+<<< hooks/useClickAway/demos/demo1.vue
 
 ## 自定义 DOM
 
@@ -24,13 +24,13 @@
 
 通过 function 返回一个对象的方式引入。
 
-<<< src/useClickAway/demos/demo2.vue
+<<< hooks/useClickAway/demos/demo2.vue
 
 ## 多个 DOM 对象
 
 <demo3 />
 
-<<< src/useClickAway/demos/demo3.vue
+<<< hooks/useClickAway/demos/demo3.vue
 
 ## 监听其他事件
 
@@ -38,7 +38,7 @@
 
 通过设置 eventName，可以指定需要监听的事件。试试点击鼠标右键。
 
-<<< src/useClickAway/demos/demo4.vue
+<<< hooks/useClickAway/demos/demo4.vue
 
 #### Params
 

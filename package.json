@@ -15,7 +15,8 @@
     "start": "vitepress dev",
     "docs:build": "vitepress build docs",
     "docs:serve": "vitepress serve docs",
-    "build": "rollup -c",
+    "build": "tsc",
+    "rollup": "rollup -c",
     "release": "node scripts/release.js",
     "test": "jest"
   },

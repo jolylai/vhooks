@@ -8,9 +8,7 @@ export const getTargetElement = (
   target: BasicTarget,
   defaultTarget?: TargetElement
 ): TargetElement | null | undefined => {
-  if (!target) {
-    return defaultTarget;
-  }
+  if (!target) return defaultTarget;
 
   let targetElement: TargetElement | null | undefined;
 

@@ -6,7 +6,8 @@
     "strict": true,
     "declaration": true,
     "noUnusedLocals": true,
-    "esModuleInterop": true
+    "esModuleInterop": true,
+    "outDir": "dist",
   },
-  
+  "include": ["hooks"]
 }

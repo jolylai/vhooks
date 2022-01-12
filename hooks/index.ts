@@ -4,6 +4,7 @@ import useVirtualList from "./useVirtualList";
 // dom
 import useSize from "./useSize";
 import useClickAway from "./useClickAway";
+import useDocumentVisibility from "./useDocumentVisibility";
 import useExternal from "./useExternal";
 import useFavicon from "./useFavicon";
 import useInViewport from "./useInViewport";
@@ -24,4 +25,7 @@ export {
   useHover,
   useMouse,
   useScroll,
+  useDocumentVisibility,
 };
+
+declare namespace usevhooks {}
