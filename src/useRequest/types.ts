@@ -1,3 +1,4 @@
+import type { WatchSource } from "vue";
 import Fetch from "./fetch";
 
 export type Subscribe = () => void;
@@ -14,7 +15,7 @@ export interface Options<TData, TParams extends any[]> {
   defaultParams?: TParams;
 
   // refreshDeps
-  // refreshDeps?: DependencyList;
+  refreshDeps?: WatchSource;
   refreshDepsAction?: () => void;
 
   // loading delay

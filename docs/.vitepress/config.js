@@ -33,6 +33,11 @@ function getHooksSidebar() {
         { text: "基础用法", link: "/hooks/useRequest/basic/" },
         { text: "轮询", link: "/hooks/useRequest/polling/" },
         { text: "Loading Delay", link: "/hooks/useRequest/loadingDelay/" },
+        { text: "依赖刷新", link: "/hooks/useRequest/refreshDeps/" },
+        {
+          text: "屏幕聚焦重新请求",
+          link: "/hooks/useRequest/refreshOnWindowFocus/",
+        },
         { text: "缓存", link: "/hooks/useRequest/cache/" },
       ],
     },
