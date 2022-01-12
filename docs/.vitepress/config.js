@@ -38,6 +38,7 @@ function getHooksSidebar() {
           text: "屏幕聚焦重新请求",
           link: "/hooks/useRequest/refreshOnWindowFocus/",
         },
+        { text: "防抖", link: "/hooks/useRequest/debounce/" },
         { text: "缓存", link: "/hooks/useRequest/cache/" },
       ],
     },
