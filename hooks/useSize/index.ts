@@ -1,5 +1,6 @@
-import { ref, watch } from "vue";
+import { ref, watchPostEffect } from "vue";
 import type { Ref } from "vue";
+import { getTargetElement } from "../utils";
 
 export type TargetType = HTMLElement | Ref<HTMLElement>;
 
@@ -7,34 +8,27 @@ const useSize = (target: TargetType) => {
   const width = ref<number>(0);
   const height = ref<number>(0);
 
-  if (target instanceof HTMLElement) {
-    target = ref(target);
-  }
+  watchPostEffect((onInvalidate) => {
+    const targetElement = getTargetElement(target);
+    if (!targetElement) return;
 
-  const resizeObserver = new ResizeObserver((entries) => {
-    entries.forEach((entry) => {
-      width.value = entry.target.clientWidth;
-      height.value = entry.target.clientHeight;
+    const observer = new ResizeObserver((entities) => {
+      for (let entity of entities) {
+        const { clientWidth, clientHeight } = entity.target;
+
+        width.value = clientWidth;
+        height.value = clientHeight;
+      }
+    });
+
+    observer.observe(targetElement);
+
+    onInvalidate(() => {
+      observer.disconnect();
     });
   });
 
-  watch(
-    target,
-    (target) => {
-      if (target) {
-        resizeObserver.disconnect();
-        resizeObserver.observe(target as HTMLElement);
-      }
-    },
-    {
-      immediate: true,
-    }
-  );
-
-  return {
-    width,
-    height,
-  };
+  return { width, height };
 };
 
 export default useSize;

@@ -1,15 +1,24 @@
 <template>
-  <p ref="containerRef">cupiditate</p>
-  <div>width{{ width }}</div>
-  <div>height{{ height }}</div>
+  <div>
+    <img
+      src="https://picsum.photos/200/80"
+      alt="img"
+      style="width: 100%; height: 100%"
+    />
+  </div>
+  <div>width: {{ width }}, height: {{ height }}</div>
 </template>
 
-<script setup>
-import { ref } from "vue";
-
+<script lang="ts">
+import { defineComponent } from "vue";
+// @ts-ignore
 import { useSize } from "usevhooks";
 
-const containerRef = ref();
+export default defineComponent({
+  setup() {
+    const { width, height } = useSize(document.querySelector("body"));
 
-const { width, height } = useSize(document.body);
+    return { width, height };
+  },
+});
 </script>

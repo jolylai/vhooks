@@ -27,5 +27,3 @@ export {
   useScroll,
   useDocumentVisibility,
 };
-
-declare namespace usevhooks {}
