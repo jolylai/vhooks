@@ -4,20 +4,29 @@
   <div>
     <span class="badge badge-pill badge-primary">Primary</span>
   </div>
-  <div>
-    <button @click="toggle">toggle</button>
-    <button @click="unload">unload</button>
-    <button @click="load">load</button>
-  </div>
+
+  <a-space>
+    <a-button @click="onUnload">unload</a-button>
+    <a-button @click="onLoad">load</a-button>
+  </a-space>
 </template>
 
-<script setup>
+<script setup lang="ts">
+// @ts-ignore
 import { useExternal } from "usevhooks";
+import { ref } from "vue";
 
-const [status, { toggle, load, unload }] = useExternal(
-  "https://ahooks.gitee.io/useExternal/bootstrap-badge.css",
-  {
-    media: "all",
-  }
-);
+const path = ref("https://ahooks.gitee.io/useExternal/bootstrap-badge.css");
+
+const status = useExternal(path, {
+  type: "css",
+});
+
+const onLoad = () => {
+  path.value = "https://ahooks.gitee.io/useExternal/bootstrap-badge.css";
+};
+
+const onUnload = () => {
+  path.value = "";
+};
 </script>

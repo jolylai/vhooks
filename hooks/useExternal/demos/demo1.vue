@@ -1,28 +1,29 @@
 <template>
   <p>status: {{ status }}</p>
-
-  <div>
-    <button @click="toggle">toggle</button>
-    <button @click="unload">unload</button>
-    <button @click="load">load</button>
-  </div>
+  <p>
+    Response: <i>{{ status === "ready" ? response : "-" }}</i>
+  </p>
 </template>
 
-<script setup>
-import { watch } from "@vue/runtime-core";
+<script setup lang="ts">
+// @ts-ignore
 import { useExternal } from "usevhooks";
+import { ref, watch } from "vue";
 
-const [status, { toggle, load, unload }] = useExternal(
+const status = useExternal(
   "https://ahooks.gitee.io/useExternal/test-external-script.js",
   {
-    media: "all",
+    type: "js",
   }
 );
+
+const response = ref();
 
 watch(status, (status) => {
   console.log("status: ", status);
   if (status === "ready") {
-    TEST_SCRIPT?.start();
+    // @ts-ignore
+    response.value = TEST_SCRIPT?.start();
   }
 });
 </script>

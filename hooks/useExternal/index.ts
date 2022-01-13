@@ -1,124 +1,112 @@
-import { ref, watchEffect, Ref, isRef, computed } from "vue";
-
-import { BasicTarget, getTargetElement } from "../utils/dom";
+import { ref, watchEffect, Ref, unref } from "vue";
 
 export interface Options {
-  type?: string;
-  async?: boolean;
-  media?: string;
-  target?: BasicTarget;
+  type?: "js" | "css";
+  js?: Partial<HTMLOrSVGElement>;
+  css: Partial<HTMLStyleElement>;
 }
 
 export type Status = "unset" | "loading" | "ready" | "error";
 
-type ExternalElement = HTMLScriptElement | HTMLLinkElement | HTMLImageElement;
+interface LoadResult {
+  ref: Element;
+  status: Status;
+}
 
-const cssReg = /\.css$/;
-const jsReg = /\.js$/;
-const imgReg = /(^img!|\.(png|gif|jpg|svg|webp)$)/;
+const loadScript = (
+  path: string,
+  props: Partial<HTMLScriptElement> = {}
+): LoadResult => {
+  const script = document.querySelector(`script[src="${path}"]`);
 
-const useExternal = (path: string | Ref<string>, options: Options) => {
-  const src = computed(() => {
-    return path;
+  if (script) return { ref: script, status: "ready" };
+
+  const newScript = document.createElement("script");
+  newScript.src = path;
+
+  Object.keys(props).forEach((key) => {
+    // @ts-ignore
+    newScript[key] = props[key];
   });
 
-  const isPath = () => {
-    if (typeof path === "string" && path !== "") return true;
-    if (isRef(path) && typeof path.value === "string" && path.value)
-      return true;
+  newScript.setAttribute("data-status", "loading");
+  document.body.appendChild(newScript);
 
-    return false;
-  };
+  return { ref: newScript, status: "loading" };
+};
 
-  const externalRef = ref<ExternalElement>();
+const loadCss = (
+  path: string,
+  props: Partial<HTMLLinkElement> = {}
+): LoadResult => {
+  const css = document.querySelector(`link[href="${path}"]`);
 
+  if (css) return { ref: css, status: "ready" };
+
+  const link = document.createElement("link");
+  link.rel = "stylesheet";
+  link.href = path;
+
+  Object.keys(props).forEach((key) => {
+    // @ts-ignore
+    link[key] = props[key];
+  });
+
+  link.setAttribute("data-status", "loading");
+
+  document.head.appendChild(link);
+
+  return { ref: link, status: "loading" };
+};
+
+const useExternal = (path: string | Ref<string>, options: Options) => {
   const status = ref<Status>(path ? "loading" : "unset");
-  const activeRef = ref<boolean>(isPath());
+  const elementRef = ref<Element>();
 
-  watchEffect(() => {
-    externalRef.value?.remove();
+  watchEffect((onInvalid) => {
+    const url = unref(path);
 
-    const src = isRef(path) ? path.value : path;
-
-    if (!path || !activeRef.value) {
-      externalRef.value = undefined;
+    if (!url) {
+      status.value = "unset";
       return;
     }
 
-    if (options?.type === "js" || jsReg.test(src)) {
-      const scriptElement = document.createElement("script");
-
-      scriptElement.async = options.async;
-      scriptElement.src = src;
-
-      scriptElement.setAttribute("data-status", "loading");
-
-      document.body.appendChild(scriptElement);
-
-      externalRef.value = scriptElement;
-    } else if (options?.type === "css" || cssReg.test(src)) {
-      const linkElement = document.createElement("link");
-
-      linkElement.rel = "stylesheet";
-      linkElement.media = options.media;
-      linkElement.href = src;
-      linkElement.setAttribute("data-status", "loading");
-
-      externalRef.value = linkElement;
-
-      document.head.appendChild(linkElement);
-    } else if (options?.type === "image" || imgReg.test(src)) {
-      const imgTargetElement = getTargetElement(options.target);
-      if (!imgTargetElement) return;
-
-      const imgElement = document.createElement("img");
-
-      imgElement.src = src;
-
-      imgElement.setAttribute("data-status", "loading");
-
-      (imgTargetElement as HTMLElement).appendChild(imgElement);
-
-      externalRef.value = imgElement;
+    if (options.type === "js") {
+      const result = loadScript(url, options.js);
+      elementRef.value = result.ref;
+      status.value = result.status;
+    } else if (options.type === "css") {
+      const result = loadCss(url, options.css);
+      elementRef.value = result.ref;
+      status.value = result.status;
     } else {
-      // do nothing
       console.error(
-        "Cannot infer the type of external resource, and please provide a type ('js' | 'css' | 'img'). " +
+        "Cannot infer the type of external resource, and please provide a type ('js' | 'css'). " +
           "Refer to the https://ahooks.js.org/hooks/dom/use-external/#options"
       );
     }
 
-    if (!externalRef.value) return;
+    if (!elementRef.value) return;
 
-    const setAttributeFromEvent = (event: Event) => {
-      externalRef.value.setAttribute(
-        "data-status",
-        event.type === "load" ? "ready" : "error"
-      );
+    const handler = (event: Event) => {
+      const targetStatus = event.type === "load" ? "ready" : "error";
+
+      status.value = targetStatus;
+      elementRef.value?.setAttribute("data-status", targetStatus);
     };
 
-    externalRef.value.addEventListener("load", setAttributeFromEvent);
+    onInvalid(() => {
+      elementRef.value?.removeEventListener("load", handler);
+      elementRef.value?.removeEventListener("error", handler);
 
-    const setStatusFromEvent = (event: Event) => {
-      status.value = event.type === "load" ? "ready" : "error";
-    };
+      elementRef.value?.remove();
+    });
 
-    externalRef.value.addEventListener("load", setStatusFromEvent);
+    elementRef.value?.addEventListener("load", handler);
+    elementRef.value?.addEventListener("error", handler);
   });
 
-  const toggle = () => {
-    activeRef.value = !activeRef.value;
-  };
-
-  const load = () => {
-    activeRef.value = true;
-  };
-
-  const unload = () => {
-    activeRef.value = false;
-  };
-
-  return [status, { toggle, load, unload }];
+  return status;
 };
 
 export default useExternal;

@@ -1,11 +1,17 @@
-const path = require("path");
+// const demoPlugin = require("./plugins/demo");
 
 module.exports = {
   title: "Vue Hooks",
   description: "Just playing around.",
+  locales: {},
+  // markdown: {
+  //   config: (md) => {
+  //     demoPlugin(md);
+  //   },
+  // },
   themeConfig: {
     repo: "jolylai/vhooks",
-    // docsDir: "hooks",
+    docsDir: "hooks",
     // srcDir: ,
     editLinks: true,
     editLinkText: "Edit this page on GitHub",
