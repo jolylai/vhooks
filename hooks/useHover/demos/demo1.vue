@@ -2,11 +2,18 @@
   <div ref="hoverRef">{{ isHovering ? "hover" : "leaveHover" }}</div>
 </template>
 
-<script setup>
-import { ref } from "vue";
+<script lang="ts">
+import { defineComponent, ref } from "vue";
+// @ts-ignore
 import { useHover } from "usevhooks";
 
-const hoverRef = ref();
+export default defineComponent({
+  setup() {
+    const hoverRef = ref();
 
-const isHovering = useHover(hoverRef);
+    const isHovering = useHover(hoverRef);
+
+    return { isHovering, hoverRef };
+  },
+});
 </script>

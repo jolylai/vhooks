@@ -7,16 +7,16 @@ interface UseHoverOptions {
 }
 
 const useHover = (target: BasicTarget, options: UseHoverOptions = {}) => {
-  const isHover = ref<boolean>(false);
+  const isHovering = ref<boolean>(false);
 
   const handleHover = (event: Event) => {
     const { type } = event;
     if (type === "mouseenter") {
       options?.onEnter?.();
-      isHover.value = true;
+      isHovering.value = true;
     } else if (type === "mouseleave") {
       options?.onLeave?.();
-      isHover.value = false;
+      isHovering.value = false;
     }
   };
 
@@ -33,7 +33,7 @@ const useHover = (target: BasicTarget, options: UseHoverOptions = {}) => {
     targetElement.addEventListener("mouseleave", handleHover);
   });
 
-  return isHover;
+  return isHovering;
 };
 
 export default useHover;
