@@ -1,27 +1,32 @@
 <template>
-  <div class="container">
+  <div class="container" id="parent">
     <div style="height: 800px">
       scroll here
-      <div ref="observerRef" class="observer">observer dom</div>
+      <div class="observer" id="children">observer dom</div>
     </div>
   </div>
   <p>inViewport: {{ inViewport ? "visible" : "hidden" }}</p>
+  <p>ratio: {{ ratio }}</p>
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from "vue";
+import { defineComponent } from "vue";
 // @ts-ignore
 import { useInViewport } from "usevhooks";
 
 export default defineComponent({
   setup() {
-    const observerRef = ref();
-
-    const [inViewport] = useInViewport(observerRef);
+    const [inViewport, ratio] = useInViewport(
+      () => document.getElementById("children"),
+      {
+        threshold: [0, 0.25, 0.5, 0.75, 1],
+        root: () => document.getElementById("parent"),
+      }
+    );
 
     return {
       inViewport,
-      observerRef,
+      ratio,
     };
   },
 });

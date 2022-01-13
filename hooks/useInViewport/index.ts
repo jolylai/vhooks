@@ -39,23 +39,35 @@ import { BasicTarget, getTargetElement } from "../utils/dom";
 //   return isInViewport;
 // };
 
-const useInViewport = (target: BasicTarget) => {
+const useInViewport = (
+  target: BasicTarget,
+  options: IntersectionObserverInit = {}
+) => {
   const isInViewport = ref(false);
   const ratio = ref();
 
-  const observer = new IntersectionObserver((entries) => {
+  const observeCb = (entries: IntersectionObserverEntry[]) => {
     for (let entry of entries) {
-      if (entry.isIntersecting || entry.intersectionRatio > 0) {
+      ratio.value = entry.intersectionRatio;
+      if (entry.isIntersecting) {
         isInViewport.value = true;
       } else {
         isInViewport.value = false;
       }
     }
-  });
+  };
 
   watchPostEffect((onInvalidate) => {
     const targetElement = getTargetElement(target);
+
+    if (options.root) {
+      options.root = getTargetElement(options.root);
+    }
+
     if (!targetElement) return;
+
+    const observer = new IntersectionObserver(observeCb, options);
+
     observer.observe(targetElement as Element);
 
     onInvalidate(() => {

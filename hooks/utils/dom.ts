@@ -1,16 +1,22 @@
 import { isRef } from "vue";
 import type { Ref } from "vue";
 
-export type BasicTarget<T = HTMLElement> = T | (() => T) | null | Ref<T>;
+type TargetValue<T> = T | undefined | null;
+
+export type BasicTarget<T extends TargetElement = Element> =
+  | TargetValue<T>
+  | (() => T)
+  | Ref<T>;
+
 export type TargetElement = HTMLElement | Element | Window | Document;
 
-export const getTargetElement = (
-  target: BasicTarget,
-  defaultTarget?: TargetElement
-): TargetElement | null | undefined => {
+export function getTargetElement<T extends TargetElement>(
+  target: BasicTarget<T>,
+  defaultTarget?: T
+): TargetValue<T> {
   if (!target) return defaultTarget;
 
-  let targetElement: TargetElement | null | undefined;
+  let targetElement: TargetValue<T>;
 
   if (typeof target === "function") {
     targetElement = target();
@@ -21,4 +27,4 @@ export const getTargetElement = (
   }
 
   return targetElement;
-};
+}
