@@ -57,6 +57,7 @@ function getHooksSidebar() {
           text: "useDocumentVisibility",
           link: "/hooks/useDocumentVisibility/",
         },
+        { text: "useDrag & useDrop", link: "/hooks/useDrop/" },
         { text: "useExternal", link: "/hooks/useExternal/" },
         { text: "useFavicon", link: "/hooks/useFavicon/" },
         { text: "useInViewport", link: "/hooks/useInViewport/" },

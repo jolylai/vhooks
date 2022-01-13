@@ -12,6 +12,8 @@ import useEventListener from "./useEventListener";
 import useHover from "./useHover";
 import useMouse from "./useMouse";
 import useScroll from "./useScroll";
+import useDrag from "./useDrag";
+import useDrop from "./useDrop";
 
 export {
   useRequest,
@@ -26,4 +28,6 @@ export {
   useMouse,
   useScroll,
   useDocumentVisibility,
+  useDrag,
+  useDrop,
 };
