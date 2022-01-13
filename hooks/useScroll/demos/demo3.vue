@@ -5,14 +5,19 @@
   <p>left: {{ left }} top: {{ top }}</p>
 </template>
 
-<script setup>
-import { ref } from "@vue/reactivity";
+<script setup lang="ts">
+import { ref } from "vue";
+// @ts-ignore
 import { useScroll } from "usevhooks";
+
 const containerRef = ref();
 
-const { left, top } = useScroll(containerRef, (position) => {
-  return position.top > 100 && position.top < 200;
-});
+const { left, top } = useScroll(
+  containerRef,
+  (position: { top: number; left: number }) => {
+    return position.top > 100 && position.top < 200;
+  }
+);
 </script>
 
 <style scoped>

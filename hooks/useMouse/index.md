@@ -3,14 +3,14 @@
 一个跟踪鼠标位置的 Hook
 
 <script setup>
-  import Demo1 from '@/src/useMouse/demos/demo1.vue'
+  import Demo1 from './demos/demo1.vue'
 </script>
 
 ## 基础用法
 
 <demo1 />
 
-<<< src/useHover/demos/demo1.vue
+<<< hooks/useHover/demos/demo1.vue
 
 #### 结果
 

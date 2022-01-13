@@ -6,7 +6,6 @@ export default defineConfig({
   resolve: {
     alias: {
       usevhooks: path.resolve(__dirname, "hooks"),
-      "@": path.resolve(__dirname, "/"),
     },
   },
 });

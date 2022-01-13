@@ -5,7 +5,8 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
+// @ts-ignore
 import { useMouse } from "usevhooks";
 
 const { screenX, screenY, clientX, clientY, pageX, pageY } = useMouse();

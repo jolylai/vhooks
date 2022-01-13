@@ -1,4 +1,4 @@
-import { Ref, ref, watchPostEffect } from "vue";
+import { ref, watchPostEffect } from "vue";
 import { BasicTarget, getTargetElement } from "../utils";
 
 interface UseScrollPosition {
@@ -8,12 +8,12 @@ interface UseScrollPosition {
 
 const useScroll = (
   target: BasicTarget,
-  shouldUpdate: (position: UseScrollPosition) => boolean
+  shouldUpdate?: (position: UseScrollPosition) => boolean
 ) => {
-  const top = ref(null);
-  const left = ref(null);
+  const top = ref(0);
+  const left = ref(0);
 
-  const handleScroll = (event) => {
+  const handleScroll = (event: Event) => {
     let scrollTop = null;
     let scrollLeft = null;
 
@@ -25,21 +25,18 @@ const useScroll = (
       scrollTop = document.scrollingElement.scrollTop;
       scrollLeft = document.scrollingElement.scrollLeft;
     } else {
-      scrollTop = target.scrollTop;
-      scrollLeft = target.scrollLeft;
+      scrollTop = (target as HTMLElement).scrollTop;
+      scrollLeft = (target as HTMLElement).scrollLeft;
     }
 
-    if (shouldUpdate && !shouldUpdate({ top: scrollTop, left: scrollLeft }))
-      return;
-
-    top.value = scrollTop;
-    left.value = scrollLeft;
+    if (shouldUpdate?.({ top: scrollTop, left: scrollLeft })) {
+      top.value = scrollTop;
+      left.value = scrollLeft;
+    }
   };
 
   watchPostEffect((onInvalid) => {
-    const targetElement = getTargetElement(target, document);
-
-    if (!targetElement) return;
+    const targetElement = getTargetElement(target) || document;
 
     onInvalid(() => {
       targetElement.removeEventListener("scroll", handleScroll);
@@ -48,10 +45,7 @@ const useScroll = (
     targetElement.addEventListener("scroll", handleScroll);
   });
 
-  return {
-    top,
-    left,
-  };
+  return { top, left };
 };
 
 export default useScroll;

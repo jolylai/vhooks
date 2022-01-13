@@ -5,22 +5,22 @@
 - [使用 document.scrollingElement 控制窗体滚动高度](https://www.zhangxinxu.com/wordpress/2019/02/document-scrollingelement/)
 
 <script setup>
-  import Demo1 from '@/src/useScroll/demos/demo1.vue'
-  import Demo2 from '@/src/useScroll/demos/demo2.vue'
-  import Demo3 from '@/src/useScroll/demos/demo3.vue'
+  import Demo1 from './demos/demo1.vue'
+  import Demo2 from './demos/demo2.vue'
+  import Demo3 from './demos/demo3.vue'
 </script>
 
 ## 基础用法
 
 <demo1 />
 
-<<< src/useScroll/demos/demo1.vue
+<<< hooks/useScroll/demos/demo1.vue
 
 ## 监测整页的滚动
 
 <demo2 />
 
-<<< src/useScroll/demos/demo2.vue
+<<< hooks/useScroll/demos/demo2.vue
 
 页面滚动在 document 滚动监听滚动事件
 
@@ -42,4 +42,4 @@ scrollingElement 返回滚动文档的 Element 对象的引用。 在标准模�
 
 <demo3 />
 
-<<< src/useScroll/demos/demo3.vue
+<<< hooks/useScroll/demos/demo3.vue
