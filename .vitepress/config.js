@@ -69,7 +69,10 @@ function getHooksSidebar() {
     },
     {
       text: "Scene",
-      children: [{ text: "useVirtualList", link: "/hooks/useVirtualList/" }],
+      children: [
+        { text: "useVirtualList", link: "/hooks/useVirtualList/" },
+        { text: "useCountDown", link: "/hooks/useCountDown/" },
+      ],
     },
     {
       text: "State",

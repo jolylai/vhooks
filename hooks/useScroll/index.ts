@@ -14,8 +14,8 @@ const useScroll = (
   const left = ref(0);
 
   const handleScroll = (event: Event) => {
-    let scrollTop = null;
-    let scrollLeft = null;
+    let scrollTop = 0;
+    let scrollLeft = 0;
 
     const target = event.target;
 

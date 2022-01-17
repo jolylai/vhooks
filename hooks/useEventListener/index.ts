@@ -14,7 +14,7 @@ const useEventListener = (
   options: EventListenerOptions = {}
 ): void => {
   watchPostEffect((onInvalidate) => {
-    const targetElement = getTargetElement(target, window);
+    const targetElement = getTargetElement(target) || window;
 
     if (!targetElement) return;
 
