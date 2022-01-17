@@ -1,11 +1,14 @@
 import { computed, reactive, ref, watch, watchEffect } from "vue";
+import { BasicTarget } from "../utils";
 
-export interface OptionType {
-  itemHeight?: number;
+export interface OptionType<T> {
+  itemHeight: number | ((index: number, data: T) => number);
   overscan?: number;
+  containerTarget: BasicTarget;
+  wrapperTarget: BasicTarget;
 }
 
-const useVirtualList = <T>(originalList: T[], options: OptionType) => {
+const useVirtualList = <T>(originalList: T[], options: OptionType<T>) => {
   const list = ref();
   const { itemHeight, overscan = 5 } = options;
 
@@ -99,10 +102,11 @@ const useVirtualList = <T>(originalList: T[], options: OptionType) => {
     };
   });
 
+  const scrollTo = (index: number) => {};
+
   return {
     list,
-    containerProps,
-    wrapperProps,
+    scrollTo,
   };
 };
 

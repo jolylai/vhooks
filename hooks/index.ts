@@ -15,6 +15,8 @@ import useScroll from "./useScroll";
 import useDrag from "./useDrag";
 import useDrop from "./useDrop";
 
+import useCounter from "./useCounter";
+
 export {
   useRequest,
   useVirtualList,
@@ -30,4 +32,5 @@ export {
   useDocumentVisibility,
   useDrag,
   useDrop,
+  useCounter,
 };

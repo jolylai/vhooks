@@ -7,7 +7,7 @@
 <virtual-list />
 
 <script setup>
-  import VirtualList from '../../../src/useVirtualList/demos/virtual-list.vue'
+  import VirtualList from './demos/virtual-list.vue'
 </script>
 
 #### Params

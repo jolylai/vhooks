@@ -67,15 +67,15 @@ function getHooksSidebar() {
         { text: "useScroll", link: "/hooks/useScroll/" },
       ],
     },
-    // {
-    //   text: "UI",
-    //   children: [{ text: "useVirtualList", link: "/hooks/useVirtualList" }],
-    // },
+    {
+      text: "Scene",
+      children: [{ text: "useVirtualList", link: "/hooks/useVirtualList/" }],
+    },
     {
       text: "State",
       children: [
-        { text: "useBoolean", link: "/hooks/useBoolean" },
-        { text: "useCounter", link: "/hooks/useCounter" },
+        { text: "useBoolean", link: "/hooks/useBoolean/" },
+        { text: "useCounter", link: "/hooks/useCounter/" },
       ],
     },
   ];
