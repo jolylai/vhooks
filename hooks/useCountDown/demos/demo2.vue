@@ -13,6 +13,7 @@
 
 <script setup lang="ts">
 import { ref } from "vue";
+import { message } from "ant-design-vue";
 // @ts-ignore
 import { useCountDown } from "usevhooks";
 
@@ -21,7 +22,7 @@ const targetDate = ref();
 const [countdown] = useCountDown({
   targetDate,
   onEnd: () => {
-    alert("End of the time");
+    message.success("End of the time");
   },
 });
 

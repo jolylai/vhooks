@@ -1,9 +1,11 @@
 <template>
-  <p>{{ countdown }}</p>
   <p>
-    There are {{ days }} days {{ hours }} hours {{ minutes }} minutes
-    {{ seconds }} seconds {{ milliseconds }}{{ " " }}
-    milliseconds until 2022-12-31 24:00:00
+    There are <a-tag color="pink">{{ days }}</a-tag> days
+    <a-tag color="red">{{ hours }}</a-tag> hours
+    <a-tag color="orange"> {{ minutes }}</a-tag> minutes
+    <a-tag color="green">{{ seconds }}</a-tag> seconds
+    <a-tag color="cyan">{{ milliseconds }}</a-tag> milliseconds until 2022-12-31
+    24:00:00
   </p>
 </template>
 

@@ -1,16 +1,24 @@
 import { reactive, ref, toRefs, unref, watch, watchEffect } from "vue";
+import type { Ref } from "vue";
 
 interface Options {
-  targetDate: TDate;
+  targetDate: TDate | Ref<TDate>;
   interval: number;
   onEnd: () => void;
 }
 
 type TDate = number | Date | string | undefined;
 
-const getCountdown = (targetDate: TDate) => {
-  if (targetDate === undefined) return 0;
-  return new Date(unref(targetDate)).getTime() - Date.now();
+const calcLeft = (targetDate: TDate) => {
+  if (!targetDate) return 0;
+
+  const left = new Date(targetDate).getTime() - Date.now();
+
+  if (left < 0) {
+    return 0;
+  }
+
+  return left;
 };
 
 const formatTimestamp = (ms: number) => {
@@ -24,9 +32,10 @@ const formatTimestamp = (ms: number) => {
 };
 
 const useCountDown = (options: Options) => {
-  const { targetDate, interval = 1000 } = options;
+  const { targetDate, interval = 1000, onEnd } = options;
 
   const countdown = ref(0);
+
   const formattedRes = reactive({
     days: 0,
     hours: 0,
@@ -38,22 +47,28 @@ const useCountDown = (options: Options) => {
   watch(countdown, (countdown) => {
     const formattedTime = formatTimestamp(countdown);
 
-    if (countdown === 0 && typeof options.onEnd) {
-      options.onEnd();
-    }
-
     Object.assign(formattedRes, formattedTime);
   });
 
   watchEffect((onInvalid) => {
-    const currentCountDown = getCountdown(targetDate);
-    console.log("targetDate: ", targetDate);
+    const currentCountDown = calcLeft(unref(targetDate));
 
-    if (!currentCountDown) return;
+    if (!currentCountDown) {
+      countdown.value = 0;
+      return;
+    }
 
     countdown.value = currentCountDown;
+
     const timer = setInterval(() => {
-      console.log("countdown.value : ", countdown.value);
+      const left = calcLeft(unref(targetDate));
+
+      if (left <= 0) {
+        onEnd?.();
+        clearInterval(timer);
+      }
+
+      countdown.value = left;
     }, interval);
 
     onInvalid(() => {
