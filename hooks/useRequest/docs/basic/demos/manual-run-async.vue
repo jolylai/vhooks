@@ -1,12 +1,18 @@
 <template>
-  <input :value="state" @input="onChange" />
-  <button @click="onEdit">Edit</button>
+  <a-input-search
+    :loading="loading"
+    v-model:value="userName"
+    placeholder="请输入用户名"
+    enter-button="Edit"
+    @search="onEdit"
+  />
 </template>
 
 <script lang="ts">
 import { defineComponent, ref } from "vue";
 // @ts-ignore
 import { useRequest } from "usevhooks";
+import { message } from "ant-design-vue";
 
 function editUsername(username: string): Promise<string> {
   return new Promise((resolve, reject) => {
@@ -22,34 +28,27 @@ function editUsername(username: string): Promise<string> {
 
 export default defineComponent({
   setup() {
-    const state = ref("");
+    const userName = ref("");
 
     const { data, error, loading, runAsync } = useRequest(editUsername, {
       manual: true,
     });
 
-    const onChange = (event: Event) => {
-      const inputTarget = event.target as HTMLInputElement;
-      const value = inputTarget.value;
-      state.value = value;
-    };
-
     const onEdit = async () => {
       try {
-        await runAsync();
-        console.log(`The username was changed to "${state.value}" !`);
+        await runAsync(userName.value);
+        message.success("编辑成功");
       } catch (error) {
-        console.error(error.message);
+        message.error(error.message);
       }
     };
 
     return {
-      state,
+      userName,
       data,
       error,
       loading,
       onEdit,
-      onChange,
     };
   },
 });

@@ -36,16 +36,16 @@ function getHooksSidebar() {
     {
       text: "useRequest",
       children: [
-        { text: "基础用法", link: "/hooks/useRequest/basic/" },
-        { text: "轮询", link: "/hooks/useRequest/polling/" },
-        { text: "Loading Delay", link: "/hooks/useRequest/loadingDelay/" },
-        { text: "依赖刷新", link: "/hooks/useRequest/refreshDeps/" },
+        { text: "基础用法", link: "/hooks/useRequest/docs/basic/" },
+        { text: "轮询", link: "/hooks/useRequest/docs/polling/" },
+        { text: "Loading Delay", link: "/hooks/useRequest/docs/loadingDelay/" },
+        { text: "依赖刷新", link: "/hooks/useRequest/docs/refreshDeps/" },
         {
           text: "屏幕聚焦重新请求",
-          link: "/hooks/useRequest/refreshOnWindowFocus/",
+          link: "/hooks/useRequest/docs/refreshOnWindowFocus/",
         },
-        { text: "防抖", link: "/hooks/useRequest/debounce/" },
-        { text: "缓存", link: "/hooks/useRequest/cache/" },
+        { text: "防抖", link: "/hooks/useRequest/docs/debounce/" },
+        { text: "缓存", link: "/hooks/useRequest/docs/cache/" },
       ],
     },
     {

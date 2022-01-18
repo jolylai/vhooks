@@ -8,11 +8,16 @@
 import { defineComponent } from "vue";
 // @ts-ignore
 import { useRequest } from "usevhooks";
+import Mock from "mockjs";
 
 function getUsername(): Promise<string> {
-  return new Promise((resolve) => {
+  return new Promise((resolve, reject) => {
     setTimeout(() => {
-      resolve("name");
+      if (Math.random() > 0.5) {
+        resolve(Mock.mock("@name"));
+      } else {
+        reject(new Error("Failed to get username"));
+      }
     }, 1000);
   });
 }
@@ -20,7 +25,6 @@ function getUsername(): Promise<string> {
 export default defineComponent({
   setup() {
     const { data, error, loading } = useRequest(getUsername);
-    console.log("data: ", data);
 
     return {
       data,
