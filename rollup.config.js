@@ -7,6 +7,7 @@ import json from "@rollup/plugin-json";
 import replace from "@rollup/plugin-replace";
 import babel from "@rollup/plugin-babel";
 import { terser } from "rollup-plugin-terser";
+import esbuild from "rollup-plugin-esbuild";
 
 const name = "usevhooks";
 
@@ -20,17 +21,17 @@ const createBanner = () => {
 
 const createBaseConfig = () => {
   return {
-    input: "src/index.js",
+    input: "hooks/index.ts",
     external: ["vue"],
-    plugins: [peerDepsExternal(), babel(), resolve(), commonjs(), json()],
+    plugins: [peerDepsExternal(), esbuild(), resolve(), commonjs(), json()],
     output: {
       sourcemap: false,
       banner: createBanner(),
       externalLiveBindings: false,
       globals: {
-        vue: "Vue"
-      }
-    }
+        vue: "Vue",
+      },
+    },
   };
 };
 
@@ -55,26 +56,27 @@ function createFileName(formatName) {
 const esBundleConfig = {
   plugins: [
     replace({
-      __DEV__: `(process.env.NODE_ENV !== 'production')`
-    })
+      __DEV__: `(process.env.NODE_ENV !== 'production')`,
+      preventAssignment: true,
+    }),
   ],
   output: {
     file: createFileName("esm-bundler"),
-    format: "es"
-  }
+    format: "es",
+  },
 };
 
 // es-browser
 const esBrowserConfig = {
   plugins: [
     replace({
-      __DEV__: true
-    })
+      __DEV__: true,
+    }),
   ],
   output: {
     file: createFileName("esm-browser"),
-    format: "es"
-  }
+    format: "es",
+  },
 };
 
 // es-browser.prod
@@ -82,26 +84,26 @@ const esBrowserProdConfig = {
   plugins: [
     terser(),
     replace({
-      __DEV__: false
-    })
+      __DEV__: false,
+    }),
   ],
   output: {
     file: createFileName("esm-browser.prod"),
-    format: "es"
-  }
+    format: "es",
+  },
 };
 
 // cjs
 const cjsConfig = {
   plugins: [
     replace({
-      __DEV__: true
-    })
+      __DEV__: true,
+    }),
   ],
   output: {
     file: createFileName("cjs"),
-    format: "cjs"
-  }
+    format: "cjs",
+  },
 };
 
 // cjs.prod
@@ -109,13 +111,13 @@ const cjsProdConfig = {
   plugins: [
     terser(),
     replace({
-      __DEV__: false
-    })
+      __DEV__: false,
+    }),
   ],
   output: {
     file: createFileName("cjs.prod"),
-    format: "cjs"
-  }
+    format: "cjs",
+  },
 };
 
 // global
@@ -123,42 +125,42 @@ const globalConfig = {
   plugins: [
     replace({
       __DEV__: true,
-      "process.env.NODE_ENV": true
-    })
+      "process.env.NODE_ENV": true,
+    }),
   ],
   output: {
     file: createFileName("global"),
     format: "iife",
-    name
-  }
+    name,
+  },
 };
 // global.prod
 const globalProdConfig = {
   plugins: [
     terser(),
     replace({
-      __DEV__: false
-    })
+      __DEV__: false,
+    }),
   ],
   output: {
     file: createFileName("global.prod"),
     format: "iife",
-    name
-  }
+    name,
+  },
 };
 
 const formatConfigs = [
   esBundleConfig,
-  esBrowserProdConfig,
-  esBrowserConfig,
-  cjsConfig,
-  cjsProdConfig,
-  globalConfig,
-  globalProdConfig
+  // esBrowserProdConfig,
+  // esBrowserConfig,
+  // cjsConfig,
+  // cjsProdConfig,
+  // globalConfig,
+  // globalProdConfig,
 ];
 
 function createPackageConfigs() {
-  return formatConfigs.map(formatConfig => {
+  return formatConfigs.map((formatConfig) => {
     return mergeConfig(createBaseConfig(), formatConfig);
   });
 }

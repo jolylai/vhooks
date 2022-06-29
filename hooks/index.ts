@@ -1,5 +1,5 @@
 import useRequest from "./useRequest";
-import useVirtualList from "./useVirtualList";
+// import useVirtualList from "./useVirtualList";
 
 // dom
 import useSize from "./useSize";
@@ -21,7 +21,7 @@ import useCountDown from "./useCountDown";
 
 export {
   useRequest,
-  useVirtualList,
+  // useVirtualList,
   useSize,
   useClickAway,
   useExternal,

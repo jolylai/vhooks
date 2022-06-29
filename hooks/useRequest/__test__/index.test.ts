@@ -2,12 +2,17 @@ import useRequest from "../index";
 
 describe("useRequest", () => {
   test("should auto run", async () => {
-    const fn = jest.fn();
+    const request = () =>
+      new Promise((resolve) => setTimeout(() => resolve("success"), 1000));
 
-    useRequest(async () => {
-      fn();
+    const successCb = jest.fn();
+    const errorCb = jest.fn();
+
+    useRequest(request, {
+      onSuccess: successCb,
+      onError: errorCb,
     });
 
-    expect(fn).toHaveBeenCalledTimes(1);
+    expect(successCb).toHaveBeenCalledTimes(1);
   });
 });
