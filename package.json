@@ -1,6 +1,6 @@
 {
   "name": "usevhooks",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "main": "dist/cjs.js",
   "module": "dist/esm-bundler.js",
   "unpkg": "dist/global.js",
