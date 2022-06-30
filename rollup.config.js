@@ -5,7 +5,6 @@ import resolve from "@rollup/plugin-node-resolve";
 import commonjs from "@rollup/plugin-commonjs";
 import json from "@rollup/plugin-json";
 import replace from "@rollup/plugin-replace";
-import babel from "@rollup/plugin-babel";
 import { terser } from "rollup-plugin-terser";
 import esbuild from "rollup-plugin-esbuild";
 
@@ -49,7 +48,7 @@ function mergeConfig(baseConfig, configB) {
 }
 
 function createFileName(formatName) {
-  return `dist/usevhooks.${formatName}.js`;
+  return `dist/${formatName}.js`;
 }
 
 // es-bundle
@@ -165,4 +164,42 @@ function createPackageConfigs() {
   });
 }
 
-export default createPackageConfigs();
+// export default createPackageConfigs();
+
+export default [
+  // iife
+  // {
+  //   input: "hooks/index.ts",
+  //   external: ["vue"],
+  //   plugins: [peerDepsExternal(), esbuild(), resolve(), commonjs(), json()],
+  //   output: {
+  //     sourcemap: false,
+  //     banner: createBanner(),
+  //     externalLiveBindings: false,
+  //     globals: {
+  //       vue: "Vue",
+  //     },
+
+  //     format: 'iife',
+  //     file: createFileName('iife'),
+  //     name: 'usevhooks',
+  //   },
+  // },
+  // esm
+  {
+    input: "hooks/index.ts",
+    external: ["vue"],
+    plugins: [esbuild(), resolve(), commonjs(), json()],
+    output: {
+      sourcemap: true,
+      banner: createBanner(),
+      externalLiveBindings: false,
+      globals: {
+        vue: "Vue",
+      },
+
+      file: createFileName("esm-bundler"),
+      format: "es",
+    },
+  },
+];
