@@ -4,7 +4,7 @@
   "packageManager": "pnpm@7.1.7",
   "main": "dist/cjs.js",
   "module": "dist/esm-bundler.js",
-  "unpkg": "dist/global.js",
+  "unpkg": "dist/iife.js",
   "license": "MIT",
   "keywords": [
     "usevhooks",
@@ -22,9 +22,7 @@
     "test": "jest"
   },
   "dependencies": {
-    "ant-design-vue": "^2.2.8",
     "lodash": "^4.17.21",
-    "mockjs": "^1.1.0",
     "vue": "^3.2.6"
   },
   "devDependencies": {
@@ -37,11 +35,13 @@
     "@types/mockjs": "^1.0.5",
     "@vitejs/plugin-vue": "^1.3.0",
     "@vue/compiler-sfc": "^3.2.6",
+    "ant-design-vue": "^3.2.9",
     "chalk": "^4.1.0",
     "enquirer": "^2.3.6",
     "execa": "^5.0.0",
     "jest": "^27.4.7",
     "minimist": "^1.2.5",
+    "mockjs": "^1.1.0",
     "rollup": "^2.44.0",
     "rollup-plugin-esbuild": "^4.9.1",
     "rollup-plugin-peer-deps-external": "^2.2.4",

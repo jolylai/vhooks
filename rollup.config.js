@@ -1,5 +1,5 @@
 import pkg from "./package.json";
-
+// import path from "path";
 import peerDepsExternal from "rollup-plugin-peer-deps-external";
 import resolve from "@rollup/plugin-node-resolve";
 import commonjs from "@rollup/plugin-commonjs";
@@ -168,38 +168,55 @@ function createPackageConfigs() {
 
 export default [
   // iife
-  // {
-  //   input: "hooks/index.ts",
-  //   external: ["vue"],
-  //   plugins: [peerDepsExternal(), esbuild(), resolve(), commonjs(), json()],
-  //   output: {
-  //     sourcemap: false,
-  //     banner: createBanner(),
-  //     externalLiveBindings: false,
-  //     globals: {
-  //       vue: "Vue",
-  //     },
-
-  //     format: 'iife',
-  //     file: createFileName('iife'),
-  //     name: 'usevhooks',
-  //   },
-  // },
-  // esm
   {
     input: "hooks/index.ts",
-    external: ["vue"],
-    plugins: [esbuild(), resolve(), commonjs(), json()],
+    external: ["vue", "lodash"],
+    plugins: [peerDepsExternal(), esbuild(), resolve(), commonjs(), json()],
     output: {
-      sourcemap: true,
+      sourcemap: false,
       banner: createBanner(),
       externalLiveBindings: false,
       globals: {
         vue: "Vue",
+        lodash: "_",
       },
-
+      format: "iife",
+      file: createFileName("iife"),
+      name: "usevhooks",
+    },
+  },
+  // esm
+  {
+    input: "hooks/index.ts",
+    external: ["vue", "lodash"],
+    plugins: [esbuild(), resolve(), commonjs(), json()],
+    // preserveModules: true,
+    output: {
+      sourcemap: true,
+      banner: createBanner(),
+      // dir: path.resolve(__dirname, "dist/esm"),
       file: createFileName("esm-bundler"),
       format: "es",
+      globals: {
+        vue: "Vue",
+        lodash: "_",
+      },
+    },
+  },
+  {
+    input: "hooks/index.ts",
+    external: ["vue", "lodash"],
+    plugins: [esbuild(), resolve(), commonjs(), json()],
+    output: {
+      globals: {
+        vue: "Vue",
+        lodash: "_",
+      },
+      sourcemap: true,
+      banner: createBanner(),
+      externalLiveBindings: false,
+      file: createFileName("cjs"),
+      format: "cjs",
     },
   },
 ];
