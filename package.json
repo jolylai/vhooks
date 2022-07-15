@@ -17,7 +17,7 @@
     "docs:build": "vitepress build docs",
     "docs:serve": "vitepress serve docs",
     "build": "tsc",
-    "rollup": "rollup -c",
+    "rollup": "rollup --config rollup.config.ts --configPlugin esbuild",
     "release": "node scripts/release.js",
     "test": "jest"
   },
