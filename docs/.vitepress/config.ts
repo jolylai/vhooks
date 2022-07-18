@@ -14,7 +14,7 @@ export default defineConfig({
     nav: [
       {
         text: "Hooks",
-        link: "/hooks/useRequest/",
+        link: "/hooks/useSize/",
         activeMatch: "/hooks/",
       },
     ],

@@ -2,8 +2,8 @@ import path from "path";
 import { globby, fs } from "zx";
 
 (async () => {
-  const files = await globby(["*/*index.js"], {
-    cwd: path.join(process.cwd(), "src"),
+  const files = await globby(["*.js.map", "*.js", "*.d.ts"], {
+    cwd: path.join(process.cwd(), "src/useRequest/__test__"),
     absolute: true,
     // expandDirectories: {
     //   extensions: [".d.ts", ".js.map", ".js"],

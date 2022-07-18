@@ -1,7 +1,9 @@
 import { ref, watchEffect } from "vue";
 
 const useDocumentVisibility = () => {
-  const visibilityState = ref<VisibilityState>(document.visibilityState);
+  const visibilityState = ref<DocumentVisibilityState>(
+    document.visibilityState
+  );
 
   const visibilityHandler = () => {
     visibilityState.value = document.visibilityState;
