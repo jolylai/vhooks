@@ -1,6 +1,7 @@
+import { defineConfig } from "vitepress";
 // const demoPlugin = require("./plugins/demo");
 
-module.exports = {
+export default defineConfig({
   title: "Vue Hooks",
   description: "Just playing around.",
   locales: {},
@@ -10,32 +11,25 @@ module.exports = {
   //   },
   // },
   themeConfig: {
-    repo: "jolylai/vhooks",
-    docsDir: "hooks",
-    // srcDir: ,
-    editLinks: true,
-    editLinkText: "Edit this page on GitHub",
-    lastUpdated: "Last Updated",
-
-    // nav: [
-    //   {
-    //     text: "hooks",
-    //     link: "/hooks/state/useBoolean",
-    //     activeMatch: "^/$|^/hooks/",
-    //   },
-    // ],
+    nav: [
+      {
+        text: "hooks",
+        link: "/hooks/useBoolean/",
+        activeMatch: "/hooks/",
+      },
+    ],
 
     sidebar: {
       "/hooks/": getHooksSidebar(),
     },
   },
-};
+});
 
 function getHooksSidebar() {
   return [
     {
       text: "useRequest",
-      children: [
+      items: [
         { text: "基础用法", link: "/hooks/useRequest/docs/basic/" },
         { text: "轮询", link: "/hooks/useRequest/docs/polling/" },
         { text: "Loading Delay", link: "/hooks/useRequest/docs/loadingDelay/" },
@@ -50,7 +44,7 @@ function getHooksSidebar() {
     },
     {
       text: "Dom",
-      children: [
+      items: [
         { text: "useEventListener", link: "/hooks/useEventListener/" },
         { text: "useClickAway", link: "/hooks/useClickAway/" },
         {
@@ -69,14 +63,14 @@ function getHooksSidebar() {
     },
     {
       text: "Scene",
-      children: [
+      items: [
         { text: "useVirtualList", link: "/hooks/useVirtualList/" },
         { text: "useCountDown", link: "/hooks/useCountDown/" },
       ],
     },
     {
       text: "State",
-      children: [
+      items: [
         { text: "useBoolean", link: "/hooks/useBoolean/" },
         { text: "useCounter", link: "/hooks/useCounter/" },
       ],
