@@ -15,8 +15,8 @@
     "forceConsistentCasingInFileNames": true,
     "resolveJsonModule": true,
     "outDir": "dist",
-    "rootDir": "hooks"
+    "rootDir": "src"
   },
-  "include": ["hooks"],
+  "include": ["src"],
   "exclude": ["**/node_modules/**", "**/dist/**"]
 }

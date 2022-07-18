@@ -22,7 +22,7 @@ const createBanner = () => {
 const plugins = [commonjs(), resolve(), json(), esbuild()];
 
 const esmBuild: RollupOptions = {
-  input: "hooks/index.ts",
+  input: "src/index.ts",
   output: {
     format: "esm",
     entryFileNames: `[name].js`,
