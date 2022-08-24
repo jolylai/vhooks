@@ -13,6 +13,11 @@ export default defineConfig({
   themeConfig: {
     nav: [
       {
+        text: "指南",
+        link: "/guide/useRequest",
+        activeMatch: "/guide/",
+      },
+      {
         text: "Hooks",
         link: "/hooks/useSize/",
         activeMatch: "/hooks/",
@@ -20,16 +25,27 @@ export default defineConfig({
     ],
 
     sidebar: {
+      "/guide/": getGuideSidebar(),
       "/hooks/": getHooksSidebar(),
     },
   },
 });
+
+function getGuideSidebar() {
+  return [
+    {
+      text: "指南",
+      items: [{ text: "dom", link: "/guide/dom" }],
+    },
+  ];
+}
 
 function getHooksSidebar() {
   return [
     {
       text: "useRequest",
       items: [
+        { text: "核心", link: "/hooks/useRequest/core/" },
         { text: "基础用法", link: "/hooks/useRequest/basic/" },
         { text: "轮询", link: "/hooks/useRequest/polling/" },
         { text: "Loading Delay", link: "/hooks/useRequest/loadingDelay/" },

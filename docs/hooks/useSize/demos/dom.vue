@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div id="use-size-dom">
     <img
       src="https://picsum.photos/200/80"
       alt="img"
@@ -9,16 +9,9 @@
   <div>width: {{ width }}, height: {{ height }}</div>
 </template>
 
-<script lang="ts">
-import { defineComponent } from "vue";
+<script lang="ts" setup>
 // @ts-ignore
 import { useSize } from "usevhooks";
 
-export default defineComponent({
-  setup() {
-    const { width, height } = useSize(document.querySelector("body"));
-
-    return { width, height };
-  },
-});
+const { width, height } = useSize(document.querySelector("#use-size-dom"));
 </script>

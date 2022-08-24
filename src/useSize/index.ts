@@ -10,6 +10,7 @@ const useSize = (target: TargetType) => {
 
   watchPostEffect((onInvalidate) => {
     const targetElement = getTargetElement(target);
+    console.log("targetElement: ", targetElement);
     if (!targetElement) return;
 
     const observer = new ResizeObserver((entities) => {

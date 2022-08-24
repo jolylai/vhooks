@@ -1,11 +1,11 @@
 ---
 layout: home
 
-title: VitePress
+title: Vue Hooks
 titleTemplate: Vite & Vue Powered Static Site Generator
 
 hero:
-  name: VitePress
+  name: Vue Hooks
   text: Vite & Vue Powered Static Site Generator
   tagline: Simple, powerful, and performant. Meet the modern SSG framework you've always wanted.
   actions:

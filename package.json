@@ -13,7 +13,7 @@
     "vue composition api"
   ],
   "scripts": {
-    "start": "vitepress dev docs",
+    "docs:start": "vitepress dev docs",
     "docs:build": "vitepress build docs",
     "docs:serve": "vitepress serve docs",
     "build": "tsc",
@@ -49,9 +49,10 @@
     "rollup-plugin-terser": "^7.0.2",
     "semver": "^7.3.5",
     "ts-jest": "^27.1.2",
-    "typescript": "^4.3.5",
+    "typescript": "^4.7.4",
+    "unplugin-vue-components": "^0.22.4",
     "vite": "^2.4.4",
-    "vitepress": "1.0.0-alpha.4",
+    "vitepress": "1.0.0-alpha.10",
     "vitest": "^0.18.1",
     "zx": "^7.0.7"
   }

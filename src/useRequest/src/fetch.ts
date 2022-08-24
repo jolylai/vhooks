@@ -6,10 +6,10 @@ export default class Fetch<TData, TParams extends any[]> {
 
   pluginImpls: PluginReturn<TData, TParams>[] = [];
 
-  state: FetchState<TData, TParams> = reactive({
+  state = reactive<FetchState<TData, TParams>>({
     loading: false,
-    params: undefined,
     data: undefined,
+    params: undefined,
     error: undefined,
   });
 
@@ -42,7 +42,9 @@ export default class Fetch<TData, TParams extends any[]> {
   }
 
   run(...params: TParams) {
-    this.runAsync(...params).catch((error) => {});
+    this.runAsync(...params).catch((error) => {
+      console.log("error: ", error);
+    });
   }
 
   async runAsync(...params: TParams): Promise<TData> {

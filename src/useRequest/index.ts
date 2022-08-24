@@ -1,27 +1,3 @@
-import useCachePlugin from "./plugins/useCachePlugin";
-import usePollingPlugin from "./plugins/usePollingPlugin";
-import useLoadingDelayPlugin from "./plugins/useLoadingDelayPlugin";
-import useAutoRunPlugin from "./plugins/useAutoRunPlugin";
-import useRefreshOnWindowFocusPlugin from "./plugins/useRefreshOnWindowFocusPlugin";
-import useDebouncePlugin from "./plugins/useDebouncePlugin";
-
-import { Options, Service, Plugin } from "./types";
-import useRequestImplement from "./useRequestImplement";
-
-function useRequest<TData, TParams extends any[]>(
-  service: Service<TData, TParams>,
-  options?: Options<TData, TParams>,
-  plugins?: Plugin<TData, TParams>[]
-) {
-  return useRequestImplement(service, options, [
-    ...(plugins || []),
-    useCachePlugin,
-    usePollingPlugin,
-    useLoadingDelayPlugin,
-    useAutoRunPlugin,
-    useRefreshOnWindowFocusPlugin,
-    useDebouncePlugin,
-  ] as Plugin<TData, TParams>[]);
-}
+import useRequest from "./src/useRequest";
 
 export default useRequest;
