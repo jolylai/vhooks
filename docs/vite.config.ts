@@ -13,7 +13,7 @@ export default defineConfig({
     },
   },
   optimizeDeps: {
-    include: ["ant-design-vue"],
+    include: ["ant-design-vue", "lodash"],
   },
   plugins: [
     Demo(),

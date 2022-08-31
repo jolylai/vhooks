@@ -1,60 +1,67 @@
-import { ref } from "vue";
-
 import * as cache from "../utils/cache";
 import * as cachePromise from "../utils/cachePromise";
-
 import { Plugin } from "../types";
+import { ref } from "vue";
+
+export type CacheOptions = {
+  cacheKey?: string;
+};
 
 const useCachePlugin: Plugin<any, any[]> = (
   fetchInstance,
-  { cacheKey, cacheTime = 5 * 60 * 1000, staleTime = 0 }
+  {
+    cacheKey,
+    cacheTime = 5 * 60 * 1000,
+    staleTime = 0,
+    // setCache: customSetCache,
+    // getCache: customGetCache,
+  }
 ) => {
-  const currentPromiseRef = ref<Promise<any>>();
-
+  const currentPromiseRef = ref();
   if (!cacheKey) return {};
 
-  const cacheData = cache.getCache(cacheKey);
-  console.log("cacheData: ", cacheData);
-  fetchInstance.state.data = cacheData?.data;
-  fetchInstance.state.params = cacheData?.params;
-
   return {
-    onBefore: () => {
+    onBefore(params) {
       const cacheData = cache.getCache(cacheKey);
-      console.log("cacheData: ", cacheData);
-      // 首次未缓存
-      if (!cacheData) return {};
 
-      if (Date.now() - cacheData.time <= staleTime) {
-        // 当前缓存新鲜，无需再请求
+      if (!cacheData) {
+        return {};
+      }
+
+      // 缓存新鲜，直接使用缓存，不重新发送请求
+      if (Date.now() - cacheData.time > staleTime) {
         return {
-          loading: false,
           data: cacheData.data,
+          loading: false,
           returnNow: true,
         };
-      } else {
-        return {
-          data: cacheData.data,
-        };
       }
+
+      return {
+        data: cacheData?.data,
+      };
     },
-    onRequest: (service, params) => {
+    onRequest: (service, args) => {
       let servicePromise = cachePromise.getCachePromise(cacheKey);
 
-      // 请求 Promise 共享，相同的 cacheKey 同时只会有一个在发起请求，后发起的会共用同一个请求 Promise
+      // 防止多次重复发送
       if (servicePromise && servicePromise !== currentPromiseRef.value) {
         return { servicePromise };
       }
 
-      servicePromise = service(...params);
+      servicePromise = service(...args);
       currentPromiseRef.value = servicePromise;
       cachePromise.setCachePromise(cacheKey, servicePromise);
-
       return { servicePromise };
     },
     onSuccess: (data, params) => {
+      // 请求成功设置缓存
       if (cacheKey) {
-        cache.setCache(cacheKey, cacheTime, data, params);
+        cache.setCache(cacheKey, cacheTime, {
+          data,
+          params,
+          time: new Date().getTime(),
+        });
       }
     },
   };

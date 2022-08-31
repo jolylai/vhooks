@@ -58,7 +58,7 @@ function transformCode(code: string, id: string) {
 
 const vitePluginVitepressDemo = (): PluginOption => {
   /** filter out files which aren't Markdown files */
-  const filter = createFilter(/(.*)hooks(.*)\.md$/);
+  const filter = createFilter([/(.*)hooks(.*)\.md$/], [/docs\/index.md$/]);
 
   return {
     name: "vite-plugin-vitepress-demo",

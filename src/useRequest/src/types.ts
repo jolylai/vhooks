@@ -1,5 +1,6 @@
 import type { WatchSource } from "vue";
 import Fetch from "./fetch";
+import type {} from "@vue/shared";
 
 export type Subscribe = () => void;
 

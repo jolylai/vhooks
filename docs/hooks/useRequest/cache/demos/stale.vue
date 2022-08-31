@@ -3,39 +3,23 @@
     <template #renderItem="{ item }">
       <a-list-item>{{ item.body }}</a-list-item>
     </template>
-    <template #header>
-      <div>Header</div>
-    </template>
-    <template #footer>
-      <div>Footer</div>
-    </template>
   </a-list>
 </template>
 
-<script lang="ts">
-import { defineComponent } from "vue";
-// @ts-ignore
+<script lang="ts" setup>
 import { useRequest } from "usevhooks";
 
 const fetchComments = async () => {
   const id = Math.floor(Math.random() * 100);
 
-  return fetch(
+  const response = await fetch(
     `https://jsonplaceholder.typicode.com/comments?postId=${id}`
-  ).then((response) => response.json());
+  );
+  return response.json();
 };
 
-export default defineComponent({
-  setup() {
-    const { data, loading } = useRequest(fetchComments, {
-      cacheKey: "staleTime-demo",
-      staleTime: 5000,
-    });
-
-    return {
-      data,
-      loading,
-    };
-  },
+const { data, loading } = useRequest(fetchComments, {
+  cacheKey: "cacheKey-staleTime",
+  staleTime: 5000,
 });
 </script>

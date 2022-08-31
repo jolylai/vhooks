@@ -14,7 +14,7 @@ export default defineConfig({
     nav: [
       {
         text: "指南",
-        link: "/guide/useRequest",
+        link: "/guide/useRequest/plugin",
         activeMatch: "/guide/",
       },
       {
@@ -37,6 +37,10 @@ function getGuideSidebar() {
       text: "指南",
       items: [{ text: "dom", link: "/guide/dom" }],
     },
+    {
+      text: "useRequest",
+      items: [{ text: "插件", link: "/guide/useRequest/plugin" }],
+    },
   ];
 }
 
@@ -55,7 +59,7 @@ function getHooksSidebar() {
           link: "/hooks/useRequest/refreshOnWindowFocus/",
         },
         { text: "防抖", link: "/hooks/useRequest/debounce/" },
-        { text: "缓存", link: "/hooks/useRequest/cache/" },
+        { text: "缓存 & SWR", link: "/hooks/useRequest/cache/" },
       ],
     },
     {

@@ -3,38 +3,45 @@ type CachedKey = string | number;
 type CachedData = {
   data: any;
   params: any;
-  timer: Timer | undefined;
   time: number;
 };
 
-const cache = new Map<CachedKey, CachedData>();
+interface RecordData extends CachedData {
+  timer: Timer | undefined;
+}
 
-const getCache = (key: CachedKey) => {
+export const cache = new Map<CachedKey, RecordData>();
+
+export const getCache = (key: CachedKey) => {
   return cache.get(key);
 };
 
-const setCache = (
+export const setCache = (
   key: CachedKey,
   cacheTime: number,
-  data: any,
-  params: any
+  cachedData: CachedData
 ) => {
   const currentCache = cache.get(key);
 
-  // 清楚定时器
   if (currentCache?.timer) {
     clearTimeout(currentCache.timer);
   }
 
   let timer: Timer | undefined = undefined;
-
   if (cacheTime > -1) {
     timer = setTimeout(() => {
       cache.delete(key);
     }, cacheTime);
   }
 
-  cache.set(key, { data, params, timer, time: Date.now() });
+  cache.set(key, { ...cachedData, timer });
 };
 
-export { getCache, setCache };
+export const clearCache = (key?: CachedKey | CachedKey[]) => {
+  if (key) {
+    const cacheKeys = Array.isArray(key) ? key : [key];
+    cacheKeys.forEach((key) => cache.delete(key));
+  } else {
+    cache.clear();
+  }
+};
