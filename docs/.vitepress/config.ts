@@ -79,6 +79,7 @@ function getHooksSidebar() {
         { text: "useHover", link: "/hooks/useHover/" },
         { text: "useMouse", link: "/hooks/useMouse/" },
         { text: "useScroll", link: "/hooks/useScroll/" },
+        { text: "useTouch", link: "/hooks/useTouch/" },
       ],
     },
     {
